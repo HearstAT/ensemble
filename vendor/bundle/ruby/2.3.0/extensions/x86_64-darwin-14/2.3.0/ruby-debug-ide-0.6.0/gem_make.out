@@ -1,0 +1,7 @@
+current directory: /Users/ablythe/hbm/ensemble/vendor/bundle/ruby/2.3.0/gems/ruby-debug-ide-0.6.0/ext
+/Users/ablythe/.rvm/rubies/ruby-2.3.3/bin/ruby mkrf_conf.rb
+Installing base gem
+Building native extensions.  This could take a while...
+
+current directory: /Users/ablythe/hbm/ensemble/vendor/bundle/ruby/2.3.0/gems/ruby-debug-ide-0.6.0/ext
+/Users/ablythe/.rvm/rubies/ruby-2.3.3/bin/ruby -rubygems /Users/ablythe/hbm/ensemble/vendor/bundle/ruby/2.3.0/gems/rake-11.3.0/exe/rake RUBYARCHDIR=/Users/ablythe/hbm/ensemble/vendor/bundle/ruby/2.3.0/extensions/x86_64-darwin-14/2.3.0/ruby-debug-ide-0.6.0 RUBYLIBDIR=/Users/ablythe/hbm/ensemble/vendor/bundle/ruby/2.3.0/extensions/x86_64-darwin-14/2.3.0/ruby-debug-ide-0.6.0
