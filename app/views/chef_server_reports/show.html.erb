@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business unit:</strong>
+  <%= @chef_server_report.business_unit %>
+</p>
+
+<p>
+  <strong>Number of nodes:</strong>
+  <%= @chef_server_report.number_of_nodes %>
+</p>
+
+<p>
+  <strong>Number of users:</strong>
+  <%= @chef_server_report.number_of_users %>
+</p>
+
+<p>
+  <strong>Number of cookbooks:</strong>
+  <%= @chef_server_report.number_of_cookbooks %>
+</p>
+
+<%= link_to 'Edit', edit_chef_server_report_path(@chef_server_report) %> |
+<%= link_to 'Back', chef_server_reports_path %>

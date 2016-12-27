@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_unit: one
+  sub_domain: MyString
+  api_key: MyString
+  service_api_key: MyString
+
+two:
+  business_unit: two
+  sub_domain: MyString
+  api_key: MyString
+  service_api_key: MyString

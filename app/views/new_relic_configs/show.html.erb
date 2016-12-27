@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business unit:</strong>
+  <%= @new_relic_config.business_unit %>
+</p>
+
+<p>
+  <strong>Account number:</strong>
+  <%= @new_relic_config.account_number %>
+</p>
+
+<p>
+  <strong>Api key:</strong>
+  <%= @new_relic_config.api_key %>
+</p>
+
+<%= link_to 'Edit', edit_new_relic_config_path(@new_relic_config) %> |
+<%= link_to 'Back', new_relic_configs_path %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_unit: one
+  name: MyString
+  is_user: false
+
+two:
+  business_unit: two
+  name: MyString
+  is_user: false

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business unit:</strong>
+  <%= @pager_duty_report.business_unit %>
+</p>
+
+<p>
+  <strong>Number of incidents:</strong>
+  <%= @pager_duty_report.number_of_incidents %>
+</p>
+
+<%= link_to 'Edit', edit_pager_duty_report_path(@pager_duty_report) %> |
+<%= link_to 'Back', pager_duty_reports_path %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business unit:</strong>
+  <%= @pager_duty_config.business_unit %>
+</p>
+
+<p>
+  <strong>Sub domain:</strong>
+  <%= @pager_duty_config.sub_domain %>
+</p>
+
+<p>
+  <strong>Api key:</strong>
+  <%= @pager_duty_config.api_key %>
+</p>
+
+<p>
+  <strong>Service api key:</strong>
+  <%= @pager_duty_config.service_api_key %>
+</p>
+
+<%= link_to 'Edit', edit_pager_duty_config_path(@pager_duty_config) %> |
+<%= link_to 'Back', pager_duty_configs_path %>

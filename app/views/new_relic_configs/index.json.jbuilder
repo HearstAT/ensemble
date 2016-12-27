@@ -1,0 +1,1 @@
+json.array! @new_relic_configs, partial: 'new_relic_configs/new_relic_config', as: :new_relic_config

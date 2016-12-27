@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Chef Server Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Business unit</th>
+      <th>Number of nodes</th>
+      <th>Number of users</th>
+      <th>Number of cookbooks</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chef_server_reports.each do |chef_server_report| %>
+      <tr>
+        <td><%= chef_server_report.business_unit %></td>
+        <td><%= chef_server_report.number_of_nodes %></td>
+        <td><%= chef_server_report.number_of_users %></td>
+        <td><%= chef_server_report.number_of_cookbooks %></td>
+        <td><%= link_to 'Show', chef_server_report %></td>
+        <td><%= link_to 'Edit', edit_chef_server_report_path(chef_server_report) %></td>
+        <td><%= link_to 'Destroy', chef_server_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chef Server Report', new_chef_server_report_path %>

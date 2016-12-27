@@ -1,0 +1,1 @@
+json.partial! "chef_configs/chef_config", chef_config: @chef_config

@@ -1,0 +1,2 @@
+module NewRelicReportsHelper
+end

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business unit:</strong>
+  <%= @chef_config.business_unit %>
+</p>
+
+<p>
+  <strong>Chef server url:</strong>
+  <%= @chef_config.chef_server_url %>
+</p>
+
+<p>
+  <strong>Chef organization:</strong>
+  <%= @chef_config.chef_organization %>
+</p>
+
+<p>
+  <strong>Admins:</strong>
+  <%= @chef_config.admins %>
+</p>
+
+<%= link_to 'Edit', edit_chef_config_path(@chef_config) %> |
+<%= link_to 'Back', chef_configs_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business unit:</strong>
+  <%= @new_relic_report.business_unit %>
+</p>
+
+<p>
+  <strong>Number of servers:</strong>
+  <%= @new_relic_report.number_of_servers %>
+</p>
+
+<p>
+  <strong>Number of apps:</strong>
+  <%= @new_relic_report.number_of_apps %>
+</p>
+
+<%= link_to 'Edit', edit_new_relic_report_path(@new_relic_report) %> |
+<%= link_to 'Back', new_relic_reports_path %>

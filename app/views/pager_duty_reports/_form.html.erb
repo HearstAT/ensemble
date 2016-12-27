@@ -1,0 +1,27 @@
+<%= form_for(pager_duty_report) do |f| %>
+  <% if pager_duty_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pager_duty_report.errors.count, "error") %> prohibited this pager_duty_report from being saved:</h2>
+
+      <ul>
+      <% pager_duty_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :business_unit_id %>
+    <%= f.text_field :business_unit_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number_of_incidents %>
+    <%= f.number_field :number_of_incidents %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>New Relic Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Business unit</th>
+      <th>Number of servers</th>
+      <th>Number of apps</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @new_relic_reports.each do |new_relic_report| %>
+      <tr>
+        <td><%= new_relic_report.business_unit %></td>
+        <td><%= new_relic_report.number_of_servers %></td>
+        <td><%= new_relic_report.number_of_apps %></td>
+        <td><%= link_to 'Show', new_relic_report %></td>
+        <td><%= link_to 'Edit', edit_new_relic_report_path(new_relic_report) %></td>
+        <td><%= link_to 'Destroy', new_relic_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New New Relic Report', new_new_relic_report_path %>

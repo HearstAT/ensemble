@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -44,6 +45,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+gem 'httparty'
+
 # Ruby 2.3 is failing when trying to debug, may need to use this version
 #gem 'debase', '>= 0.2.2.beta8'
 gem 'debase'
@@ -51,7 +54,7 @@ gem 'ruby-debug-ide'
 # Rake 12.0.0 released Dec 6, 2016 https://rubygems.org/gems/rake/
 # Getting this error on Docker:
 # Bundler::GemNotFound: Your bundle is locked to rake (12.0.0), but that version could not be found in any of the sources listed in your Gemfile. If you haven't changed sources, that means the author of rake (12.0.0) has removed it. You'll need to update your bundle to a different version of rake (12.0.0) that hasn't been removed in order to install
-gem 'rake', '~> 11.3'
+#gem 'rake', '~> 11.3'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

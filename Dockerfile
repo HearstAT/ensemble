@@ -7,7 +7,7 @@ FROM ruby:2.2
 # may need to use the 2.2.x pre-release betas https://rubygems.org/gems/debase
 
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs && \
+    apt-get install -y build-essential libpq-dev nodejs postgresql && \
     apt-get autoremove -y && \
     apt-get clean -y && rm -rf /var/lib/apt/lists/*
 

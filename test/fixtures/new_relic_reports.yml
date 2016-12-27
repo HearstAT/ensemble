@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_unit: one
+  number_of_servers: 1
+  number_of_apps: 1
+
+two:
+  business_unit: two
+  number_of_servers: 1
+  number_of_apps: 1

@@ -1,0 +1,2 @@
+module PagerDutyConfigsHelper
+end

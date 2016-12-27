@@ -1,0 +1,32 @@
+<%= form_for(new_relic_report) do |f| %>
+  <% if new_relic_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(new_relic_report.errors.count, "error") %> prohibited this new_relic_report from being saved:</h2>
+
+      <ul>
+      <% new_relic_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :business_unit_id %>
+    <%= f.text_field :business_unit_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number_of_servers %>
+    <%= f.number_field :number_of_servers %>
+  </div>
+
+  <div class="field">
+    <%= f.label :number_of_apps %>
+    <%= f.number_field :number_of_apps %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
