@@ -1,0 +1,112 @@
+<%= form_for(pager_duty_incident) do |f| %>
+  <% if pager_duty_incident.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pager_duty_incident.errors.count, "error") %> prohibited this pager_duty_incident from being saved:</h2>
+
+      <ul>
+      <% pager_duty_incident.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :business_unit_id %>
+    <%= f.text_field :business_unit_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :id %>
+    <%= f.text_field :id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :incident_number %>
+    <%= f.number_field :incident_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :service_id %>
+    <%= f.text_field :service_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :service_name %>
+    <%= f.text_field :service_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :escalation_policy_id %>
+    <%= f.text_field :escalation_policy_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :created_on %>
+    <%= f.datetime_select :created_on %>
+  </div>
+
+  <div class="field">
+    <%= f.label :resolved_on %>
+    <%= f.datetime_select :resolved_on %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seconds_to_first_ack %>
+    <%= f.number_field :seconds_to_first_ack %>
+  </div>
+
+  <div class="field">
+    <%= f.label :seconds_to_resolve %>
+    <%= f.number_field :seconds_to_resolve %>
+  </div>
+
+  <div class="field">
+    <%= f.label :auto_resolved %>
+    <%= f.number_field :auto_resolved %>
+  </div>
+
+  <div class="field">
+    <%= f.label :acknowledge_count %>
+    <%= f.number_field :acknowledge_count %>
+  </div>
+
+  <div class="field">
+    <%= f.label :assignment_count %>
+    <%= f.number_field :assignment_count %>
+  </div>
+
+  <div class="field">
+    <%= f.label :acknowledged_by_user_ids %>
+    <%= f.text_field :acknowledged_by_user_ids %>
+  </div>
+
+  <div class="field">
+    <%= f.label :acknowledged_by_user_names %>
+    <%= f.text_field :acknowledged_by_user_names %>
+  </div>
+
+  <div class="field">
+    <%= f.label :resolved_by_user_id %>
+    <%= f.text_field :resolved_by_user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :resolved_by_user_name %>
+    <%= f.text_field :resolved_by_user_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :urgency %>
+    <%= f.text_field :urgency %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

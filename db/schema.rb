@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215213635) do
+ActiveRecord::Schema.define(version: 20170112155526) do
 
   create_table "business_units", force: :cascade do |t|
     t.string   "name"
@@ -76,11 +76,39 @@ ActiveRecord::Schema.define(version: 20161215213635) do
     t.index ["business_unit_id"], name: "index_pager_duty_configs_on_business_unit_id"
   end
 
+  create_table "pager_duty_incidents", force: :cascade do |t|
+    t.integer  "business_unit_id"
+    t.string   "pager_duty_id"
+    t.integer  "incident_number"
+    t.string   "description"
+    t.string   "service_id"
+    t.string   "service_name"
+    t.string   "escalation_policy_id"
+    t.datetime "created_on"
+    t.datetime "resolved_on"
+    t.integer  "seconds_to_first_ack"
+    t.integer  "seconds_to_resolve"
+    t.integer  "auto_resolved"
+    t.integer  "acknowledge_count"
+    t.integer  "assignment_count"
+    t.string   "acknowledged_by_user_ids"
+    t.string   "acknowledged_by_user_names"
+    t.string   "resolved_by_user_id"
+    t.string   "resolved_by_user_name"
+    t.string   "urgency"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["business_unit_id"], name: "index_pager_duty_incidents_on_business_unit_id"
+  end
+
   create_table "pager_duty_reports", force: :cascade do |t|
     t.integer  "business_unit_id"
     t.integer  "number_of_incidents"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.boolean  "active"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.index ["business_unit_id"], name: "index_pager_duty_reports_on_business_unit_id"
   end
 

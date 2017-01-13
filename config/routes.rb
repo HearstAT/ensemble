@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  
+  resources :pager_duty_incidents
   resources :new_relic_reports
   resources :chef_server_reports
   resources :pager_duty_reports
@@ -8,5 +11,14 @@ Rails.application.routes.draw do
   resources :users
   resources :contacts
   resources :business_units
+  resources :charts, only: [] do
+    collection do
+      get 'mttr_by_month'
+      get 'mtta_by_month'
+      get 'incident_minutes_by_month'
+      get 'availability_by_month'
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

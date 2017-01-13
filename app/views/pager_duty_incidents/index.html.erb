@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Pager Duty Incidents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Business unit</th>
+      <th>Id</th>
+      <th>Incident number</th>
+      <th>Description</th>
+      <th>Service</th>
+      <th>Service name</th>
+      <th>Escalation policy</th>
+      <th>Created on</th>
+      <th>Resolved on</th>
+      <th>Seconds to first ack</th>
+      <th>Seconds to resolve</th>
+      <th>Auto resolved</th>
+      <th>Acknowledge count</th>
+      <th>Assignment count</th>
+      <th>Acknowledged by user ids</th>
+      <th>Acknowledged by user names</th>
+      <th>Resolved by user</th>
+      <th>Resolved by user name</th>
+      <th>Urgency</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pager_duty_incidents.each do |pager_duty_incident| %>
+      <tr>
+        <td><%= pager_duty_incident.business_unit.name %></td>
+        <td><%= pager_duty_incident.id %></td>
+        <td><%= pager_duty_incident.incident_number %></td>
+        <td><%= pager_duty_incident.description %></td>
+        <td><%= pager_duty_incident.service_id %></td>
+        <td><%= pager_duty_incident.service_name %></td>
+        <td><%= pager_duty_incident.escalation_policy_id %></td>
+        <td><%= pager_duty_incident.created_on %></td>
+        <td><%= pager_duty_incident.resolved_on %></td>
+        <td><%= pager_duty_incident.seconds_to_first_ack %></td>
+        <td><%= pager_duty_incident.seconds_to_resolve %></td>
+        <td><%= pager_duty_incident.auto_resolved %></td>
+        <td><%= pager_duty_incident.acknowledge_count %></td>
+        <td><%= pager_duty_incident.assignment_count %></td>
+        <td><%= pager_duty_incident.acknowledged_by_user_ids %></td>
+        <td><%= pager_duty_incident.acknowledged_by_user_names %></td>
+        <td><%= pager_duty_incident.resolved_by_user_id %></td>
+        <td><%= pager_duty_incident.resolved_by_user_name %></td>
+        <td><%= pager_duty_incident.urgency %></td>
+        <td><%= link_to 'Show', pager_duty_incident %></td>
+        <td><%= link_to 'Edit', edit_pager_duty_incident_path(pager_duty_incident) %></td>
+        <td><%= link_to 'Destroy', pager_duty_incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pager Duty Incident', new_pager_duty_incident_path %>

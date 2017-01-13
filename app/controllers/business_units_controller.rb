@@ -1,3 +1,5 @@
+
+
 class BusinessUnitsController < ApplicationController
   before_action :set_business_unit, only: [:show, :edit, :update, :destroy]
 
@@ -5,6 +7,9 @@ class BusinessUnitsController < ApplicationController
   # GET /business_units.json
   def index
     @business_units = BusinessUnit.all
+    @pager_duty_configs = PagerDutyConfig.all
+    @new_relic_configs = NewRelicConfig.all
+    @chef_server_config = ChefConfig.all
   end
 
   # GET /business_units/1

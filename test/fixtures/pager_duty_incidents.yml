@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_unit: one
+  id: MyString
+  incident_number: 1
+  description: MyString
+  service_id: MyString
+  service_name: MyString
+  escalation_policy_id: MyString
+  created_on: 2017-01-12 09:55:26
+  resolved_on: 2017-01-12 09:55:26
+  seconds_to_first_ack: 1
+  seconds_to_resolve: 1
+  auto_resolved: 1
+  acknowledge_count: 1
+  assignment_count: 1
+  acknowledged_by_user_ids: MyString
+  acknowledged_by_user_names: MyString
+  resolved_by_user_id: MyString
+  resolved_by_user_name: MyString
+  urgency: MyString
+
+two:
+  business_unit: two
+  id: MyString
+  incident_number: 1
+  description: MyString
+  service_id: MyString
+  service_name: MyString
+  escalation_policy_id: MyString
+  created_on: 2017-01-12 09:55:26
+  resolved_on: 2017-01-12 09:55:26
+  seconds_to_first_ack: 1
+  seconds_to_resolve: 1
+  auto_resolved: 1
+  acknowledge_count: 1
+  assignment_count: 1
+  acknowledged_by_user_ids: MyString
+  acknowledged_by_user_names: MyString
+  resolved_by_user_id: MyString
+  resolved_by_user_name: MyString
+  urgency: MyString

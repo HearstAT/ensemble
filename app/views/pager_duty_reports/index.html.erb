@@ -2,28 +2,10 @@
 
 <h1>Pager Duty Reports</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Business unit</th>
-      <th>Number of incidents</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= mttr_by_month %>
 
-  <tbody>
-    <% @pager_duty_reports.each do |pager_duty_report| %>
-      <tr>
-        <td><%= pager_duty_report.business_unit %></td>
-        <td><%= pager_duty_report.number_of_incidents %></td>
-        <td><%= link_to 'Show', pager_duty_report %></td>
-        <td><%= link_to 'Edit', edit_pager_duty_report_path(pager_duty_report) %></td>
-        <td><%= link_to 'Destroy', pager_duty_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= mtta_by_month %>
 
-<br>
+<%= incident_minutes_by_month %>
 
-<%= link_to 'New Pager Duty Report', new_pager_duty_report_path %>
+

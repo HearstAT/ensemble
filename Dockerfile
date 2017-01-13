@@ -7,7 +7,7 @@ FROM ruby:2.2
 # may need to use the 2.2.x pre-release betas https://rubygems.org/gems/debase
 
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs postgresql && \
+    apt-get install -y build-essential libpq-dev nodejs postgresql git && \
     apt-get autoremove -y && \
     apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
@@ -26,7 +26,7 @@ RUN if [ -f Gemfile.lock ]; then rm -f Gemfile.lock; fi &&\
 # have to bundle install --binstubs --path vendor/bundle for sinatra
 # TODO clean this up so only have to run one
 RUN bundle install 
-#; bundle install --binstubs --path vendor/bundle
+RUN bundle install --binstubs --path vendor/bundle
 
 # command/CMD is now in the docker-compose
 

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :business_unit_id %>
-    <%= f.text_field :business_unit_id %>
+    <%= f.collection_select :business_unit_id, BusinessUnit.all, :id, :name, prompt: true %>
   </div>
 
   <div class="field">
@@ -23,12 +23,12 @@
 
   <div class="field">
     <%= f.label :api_key %>
-    <%= f.text_field :api_key %>
+    <%= f.password_field :api_key %>
   </div>
 
   <div class="field">
     <%= f.label :service_api_key %>
-    <%= f.text_field :service_api_key %>
+    <%= f.password_field :service_api_key %>
   </div>
 
   <div class="actions">
