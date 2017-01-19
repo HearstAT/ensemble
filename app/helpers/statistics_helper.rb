@@ -14,6 +14,10 @@ module StatisticsHelper
             title: {
                 text: 'Month'
             }
+        },
+        rangeSelector: {
+          allButtonsEnabled: true
+
         }
     }
   end
