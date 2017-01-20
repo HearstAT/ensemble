@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  devise_for :users
   resources :pager_duty_incidents
   resources :new_relic_reports
   resources :chef_server_reports
