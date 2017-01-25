@@ -9,9 +9,21 @@ default: &default
   pool: 5
   timeout: 5000
 
+#
+#development:
+#  <<: *default
+#  database: db/development.sqlite3
+#
+
 development:
-  <<: *default
-  database: db/development.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: railstest
+  pool: 5
+  username: railstest1
+  password: railstest
+  host: localhost
+  port: 5432
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

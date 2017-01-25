@@ -1,1 +1,0 @@
-json.array! @chef_configs, partial: 'chef_configs/chef_config', as: :chef_config

@@ -1,1 +1,0 @@
-json.partial! "pager_duty_configs/pager_duty_config", pager_duty_config: @pager_duty_config

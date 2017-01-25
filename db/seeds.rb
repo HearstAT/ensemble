@@ -19,3 +19,4 @@ PagerDutyConfig.all.each do |pd|
   }
 end
 
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

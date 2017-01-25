@@ -1,1 +1,0 @@
-json.partial! "new_relic_configs/new_relic_config", new_relic_config: @new_relic_config
