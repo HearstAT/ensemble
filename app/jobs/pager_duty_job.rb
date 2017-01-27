@@ -2,18 +2,10 @@ require 'httparty'
 require 'net/http'
 require 'net/https'
 
+class PagerDutyJob < ApplicationJob
+  queue_as :default
 
-namespace :gather do
-  desc "TODO"
-  task chef: :environment do
-  end
-
-  desc "TODO"
-  task new_relic: :environment do
-  end
-
-  desc "Gathers the incidents data for the last twelve months for all configured pagerduty accounts"
-  task pagerduty_incidents: :environment do
+  def perform(*args)
     since_date = 12.months.ago.beginning_of_day.iso8601
     until_date = Time.now.utc.iso8601
     uri = URI("https://api.pagerduty.com/reports/raw/incidents.csv?since=#{since_date}&until=#{until_date}")
@@ -44,6 +36,7 @@ namespace :gather do
       end
 
       csv_hash.each do |incident|
+        # Overwrite/update if already in database
         if PagerDutyIncident.exists?(pager_duty_id: incident[:id])
           pdi = PagerDutyIncident.find_by(pager_duty_id: incident[:id])
         else
@@ -78,45 +71,4 @@ namespace :gather do
       end
     end
   end
-
-  desc "Deprecated this was the first attempt"
-  task pagerduty: :environment do
-    SINCE_DATE = 6.months.ago.beginning_of_day.iso8601
-    UNTIL_DATE = Time.now.utc.iso8601
-    TIMEFRAME = 'monthly'
-
-    PagerDutyConfig.all.each do |pd|
-
-      ENDPOINT = "https://#{pd.sub_domain}.pagerduty.com/api/v1/reports/" \
-                "incidents_per_time/?since=#{SINCE_DATE}&until=#{UNTIL_DATE}" \
-                "&rollup=#{TIMEFRAME}"
-      TOKEN_STRING = "Token token=#{pd.api_key}"
-
-      response = HTTParty.get(
-        ENDPOINT,
-        headers: {
-          'Content-Type' => 'application/json', 
-          'Authorization' => TOKEN_STRING
-        }
-      )
-
-      puts "********** parsed response ********"
-      puts response.parsed_response["incidents"].inspect
-      response.parsed_response["incidents"].each do |data|
-        puts "********** data ********"
-        puts data
-        pdr = PagerDutyReport.new
-        pdr.business_unit = pd.business_unit
-        pdr.number_of_incidents = data['number_of_incidents']
-        pdr.active = true
-        pdr.start_date = data['start']
-        pdr.end_date = data['end']
-        pdr.save!
-      end
-      puts "********** response body ********"
-      puts response.body
-    end
-    
-  end
-
 end
