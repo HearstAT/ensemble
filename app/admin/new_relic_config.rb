@@ -3,7 +3,7 @@ ActiveAdmin.register NewRelicConfig do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :business_unit, :account_number, :api_key
+permit_params :business_unit_id, :account_number, :api_key
 #
 # or
 #

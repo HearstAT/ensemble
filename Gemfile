@@ -56,7 +56,10 @@ gem 'activeadmin', github: 'activeadmin/activeadmin'
 # Rails 5 work around
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
-gem 'whenever'
+gem 'daemons'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'whenever', require: false
 
 # Ruby 2.3 is failing when trying to debug, may need to use this version
 #gem 'debase', '>= 0.2.2.beta8'

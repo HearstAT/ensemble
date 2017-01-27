@@ -5,7 +5,7 @@ require 'net/https'
 class PagerDutyJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform()
     since_date = 12.months.ago.beginning_of_day.iso8601
     until_date = Time.now.utc.iso8601
     uri = URI("https://api.pagerduty.com/reports/raw/incidents.csv?since=#{since_date}&until=#{until_date}")
