@@ -33,5 +33,13 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  # <<: *default
+  # database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: ensemble_production
+  pool: 10
+  username: ensemble
+  password: ensemble
+  host: update-me.rds.amazonaws.com
+  
