@@ -50,8 +50,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Ruby 2.3 is failing when trying to debug, may need to use this version
   #gem 'debase', '>= 0.2.2.beta8'
-  gem 'debase'
-  gem 'ruby-debug-ide'
+  gem 'debase', '~>0.2.2.beta10'
+  gem 'ruby-debug-ide', '~> 0.6.1.beta4'
 end
 
 gem 'httparty'

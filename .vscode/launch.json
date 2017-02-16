@@ -34,7 +34,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rails",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/ruby-2.2.4@rails/wrappers/bundle",
+            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
@@ -48,7 +48,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rackup",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/ruby-2.3.0/wrappers/bundle",
+            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide"
         },
@@ -59,7 +59,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rspec",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/ruby-2.3.0/wrappers/bundle",
+            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
@@ -74,7 +74,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rspec",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/ruby-2.3.0/wrappers/bundle",
+            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
