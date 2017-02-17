@@ -68,6 +68,24 @@
             ]
         },
         {
+            "name": "Test - all",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/bin/rails",
+            "useBundler": true,
+            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "showDebuggerOutput": true,
+            "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
+            "env": {
+                "RAILS_ENV": "test"
+            },
+            "args": [
+                "test",
+                "${workspaceRoot}/test/models/**/*.rb"
+            ]
+        },
+        {
             "name": "RSpec - active spec file only",
             "type": "Ruby",
             "request": "launch",
@@ -79,6 +97,22 @@
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
                 "-I",
+                "${workspaceRoot}",
+                "${file}"
+            ]
+        },
+        {
+            "name": "Test - active spec file only",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/bin/rails",
+            "useBundler": true,
+            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "showDebuggerOutput": true,
+            "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
+            "args": [
+                "test",
                 "${workspaceRoot}",
                 "${file}"
             ]

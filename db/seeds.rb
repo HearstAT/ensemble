@@ -19,4 +19,7 @@ PagerDutyConfig.all.each do |pd|
   }
 end
 
-User.create!(email: 'admin2@example.com', password: 'password', password_confirmation: 'password', admin: true)
+Domain.create!(domain: 'example.com')
+unless User.where(email: 'admin2@example.com')
+  User.create!(email: 'admin2@example.com', password: 'password', password_confirmation: 'password', admin: true)
+end

@@ -1,5 +1,6 @@
 ActiveAdmin.register_page "Dashboard" do
-
+  #before_action :authenticate_active_admin_user!
+  
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
   content title: proc{ I18n.t("active_admin.dashboard") } do

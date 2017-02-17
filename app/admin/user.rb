@@ -1,4 +1,5 @@
-ActiveAdmin.register AdminUser do
+ActiveAdmin.register User do
+  before_action :authenticate_active_admin_user!
   permit_params :email, :password, :password_confirmation, :admin
 
   index do
@@ -23,8 +24,11 @@ ActiveAdmin.register AdminUser do
       f.input :email
       f.input :password
       f.input :password_confirmation
+      f.input :admin
     end
     f.actions
   end
+
+
 
 end
