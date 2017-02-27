@@ -36,4 +36,12 @@ class ChartsController < ApplicationController
     render json: bu_array
   end
 
+  def number_of_incidents_by_month
+    bu_array = Array.new
+    PagerDutyConfig.all.each do |pd|
+      result = PagerDutyIncident.where(business_unit_id: pd.business_unit_id).group_by_month(:created_on).count
+      bu_array << {name: pd.business_unit.name, data: result}
+    end
+    render json: bu_array
+  end
 end

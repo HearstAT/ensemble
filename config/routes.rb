@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'mtta_by_month'
       get 'incident_minutes_by_month'
       get 'availability_by_month'
+      get 'number_of_incidents_by_month'
     end
   end
 

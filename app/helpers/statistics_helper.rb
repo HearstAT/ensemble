@@ -58,4 +58,22 @@ module StatisticsHelper
     }
   end
 
+  def number_of_incident_by_month
+    line_chart number_of_incidents_by_month_charts_path, library: {
+        title: {text: 'Number of Incidents by Month', x: -20},
+        yAxis: {
+            crosshairs: true,
+            title: {
+                text: 'Number'
+            }
+        },
+        xAxis: {
+            crosshair: true,
+            title: {
+                text: 'Month'
+            }
+        }
+    }
+  end
+
 end
