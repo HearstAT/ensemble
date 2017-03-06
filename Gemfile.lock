@@ -35,6 +35,13 @@ GIT
     groupdate (3.1.1)
       activesupport (>= 3)
 
+GIT
+  remote: https://github.com/aaronblythe/chartkick.git
+  revision: 35a1366d565edeee700fa0b8d14fae818d80534e
+  branch: add_highstock
+  specs:
+    chartkick (2.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -84,7 +91,6 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (9.0.6)
-    chartkick (2.2.2)
     chronic (0.10.2)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -123,6 +129,8 @@ GEM
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
+    highstock-rails (2.1.10)
+      railties (>= 3.1)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -259,7 +267,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   byebug
-  chartkick
+  chartkick!
   coffee-rails (~> 4.2)
   daemons
   debase (~> 0.2.2.beta10)
@@ -268,6 +276,7 @@ DEPENDENCIES
   devise
   faker
   groupdate!
+  highstock-rails
   httparty
   inherited_resources!
   jbuilder (~> 2.5)

@@ -32,9 +32,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # graphing and charting capabilities
-gem 'chartkick'
+gem 'chartkick', :git => 'https://github.com/aaronblythe/chartkick.git', :branch => 'add_highstock'
 gem "groupdate", github: "ankane/groupdate", branch: "sqlite"
 gem 'faker'
+gem 'highstock-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

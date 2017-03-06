@@ -5,6 +5,7 @@ class PagerDutyReportsController < ApplicationController
   # GET /pager_duty_reports.json
   def index
     @pager_duty_reports = PagerDutyReport.all
+    @pager_duty_incidents = PagerDutyIncident.order(created_on: :desc).limit(10)
   end
 
   # GET /pager_duty_reports/1
