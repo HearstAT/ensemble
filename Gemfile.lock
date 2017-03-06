@@ -35,6 +35,11 @@ GIT
     groupdate (3.1.1)
       activesupport (>= 3)
 
+PATH
+  remote: /Users/ablythe/opensource/chartkick
+  specs:
+    chartkick (2.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,13 +83,19 @@ GEM
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (7.1.4)
+    autoprefixer-rails (6.7.6)
+      execjs
     bcrypt (3.1.11)
+    bootstrap-datepicker-rails (1.6.4.1)
+      railties (>= 3.0)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     bourbon (4.2.7)
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.2)
     byebug (9.0.6)
-    chartkick (2.2.2)
     chronic (0.10.2)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -123,6 +134,9 @@ GEM
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
+    hash-deep-merge (0.1.1)
+    highstock-rails (2.1.10)
+      railties (>= 3.1)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -147,6 +161,8 @@ GEM
       activerecord
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
+    lazy_high_charts (1.5.6)
+      hash-deep-merge
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -258,8 +274,10 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  bootstrap-datepicker-rails
+  bootstrap-sass
   byebug
-  chartkick
+  chartkick!
   coffee-rails (~> 4.2)
   daemons
   debase (~> 0.2.2.beta10)
@@ -268,10 +286,12 @@ DEPENDENCIES
   devise
   faker
   groupdate!
+  highstock-rails
   httparty
   inherited_resources!
   jbuilder (~> 2.5)
   jquery-rails
+  lazy_high_charts
   listen (~> 3.0.5)
   pg
   puma (~> 3.0)

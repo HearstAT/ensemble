@@ -32,9 +32,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # graphing and charting capabilities
-gem 'chartkick'
+gem 'chartkick', :path => '/Users/ablythe/opensource/chartkick'
 gem "groupdate", github: "ankane/groupdate", branch: "sqlite"
 gem 'faker'
+gem 'bootstrap-sass'
+gem 'bootstrap-datepicker-rails'
+gem 'highstock-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,6 +67,7 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'whenever', require: false
+gem 'lazy_high_charts'
 
 
 # Rake 12.0.0 released Dec 6, 2016 https://rubygems.org/gems/rake/
