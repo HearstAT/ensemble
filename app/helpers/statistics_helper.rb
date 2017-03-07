@@ -46,7 +46,11 @@ module StatisticsHelper
           }
         },
         legend: {
-          enabled: true
+          enabled: true,
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          backgroundColor: '#FFFFFF'
         }
       }
     }
