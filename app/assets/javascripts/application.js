@@ -17,3 +17,22 @@
 //= require highstock
 //= require chartkick
 //= require bootstrap
+
+$(function () {
+    Highcharts.setOptions({
+		lang: {
+			thousandsSep: ','
+		}
+	});
+});
+
+$(function() {
+  $("#pager_duty_incidents th a, #pager_duty_incidents .pagination a").live("click", function() {
+    $.getScript(this.href);
+    return false;
+  });
+  $("#pager_duty_incidents_search input").keyup(function() {
+    $.get($("#pager_duty_incidents_search").attr("action"), $("#pager_duty_incidents_search").serialize(), null, "script");
+    return false;
+  });
+});

@@ -2,6 +2,30 @@
 
 <h1>Pager Duty Incidents</h1>
 
+<%= will_paginate @pager_duty_incidents %>
+
+
+
+<%= form_tag products_path, :method => 'get' do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+
+
+<%= form_tag pager_duty_incidents_path, :method => 'get', :id => "pager_duty_incidents_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <div id="pager_duty_incidents"><%= render 'pager_duty_incidents' %></div>
+<% end %>
+
+
 <table>
   <thead>
     <tr>

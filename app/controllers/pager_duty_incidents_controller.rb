@@ -13,7 +13,8 @@ class PagerDutyIncidentsController < ApplicationController
   # GET /pager_duty_incidents
   # GET /pager_duty_incidents.json
   def index
-    @pager_duty_incidents = PagerDutyIncident.all
+    @pager_duty_incidents = PagerDutyIncident.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+
   end
 
   # GET /pager_duty_incidents/1
