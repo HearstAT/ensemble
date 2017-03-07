@@ -23,7 +23,7 @@ module StatisticsHelper
         yAxis:
         {
           crosshairs: true,
-          title: { text: x_axis }
+          title: { text: 'minutes' }
         },
         xAxis:
         {
