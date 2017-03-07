@@ -21,7 +21,7 @@ ActiveAdmin.register PagerDutyConfig do
 
   form do |f|
     f.inputs "Admin Details" do
-      f.input :business_unit_id
+      f.input :business_unit
       f.input :sub_domain
       f.input :api_key, as: :password
       f.input :service_api_key, as: :password
