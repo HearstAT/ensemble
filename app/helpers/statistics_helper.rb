@@ -44,6 +44,9 @@ module StatisticsHelper
           series: {
             connectNulls: true
           }
+        },
+        legend: {
+          enabled: true
         }
       }
     }
