@@ -2,6 +2,8 @@
 
 <h1>Pager Duty Incidents</h1>
 
+<%= will_paginate @pager_duty_incidents %>
+
 <table>
   <thead>
     <tr>
@@ -51,13 +53,9 @@
         <td><%= pager_duty_incident.resolved_by_user_name %></td>
         <td><%= pager_duty_incident.urgency %></td>
         <td><%= link_to 'Show', pager_duty_incident %></td>
-        <td><%= link_to 'Edit', edit_pager_duty_incident_path(pager_duty_incident) %></td>
-        <td><%= link_to 'Destroy', pager_duty_incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+     </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Pager Duty Incident', new_pager_duty_incident_path %>
