@@ -14,7 +14,7 @@ class PagerDutyIncidentsController < ApplicationController
   # GET /pager_duty_incidents.json
   def index
     #@pager_duty_incidents = PagerDutyIncident.order(created_on: :desc)
-    @pager_duty_incidents = PagerDutyIncident.paginate(:page => params[:page], :per_page => 30).order('id DESC')
+    @pager_duty_incidents = PagerDutyIncident.paginate(:page => params[:page], :per_page => 30).order('created_on DESC')
   end
 
   # GET /pager_duty_incidents/1
