@@ -1,15 +1,15 @@
 module StatisticsHelper
 
   def mttr_by_month
-    stock_chart mttr_by_month_charts_path, basic_opts('Mean Time to Resolution (MTTR) by Month', 'months')
+    stock_chart mttr_by_month_charts_path, basic_opts('Mean Time to Resolution (MTTR) by Month', 'minutes')
   end
 
   def mtta_by_month
-    stock_chart mtta_by_month_charts_path, basic_opts('Mean Time to Acknowledge (MTTA) by Month', 'months')
+    stock_chart mtta_by_month_charts_path, basic_opts('Mean Time to Acknowledge (MTTA) by Month', 'minutes')
   end
 
   def incident_minutes_by_month
-    stock_chart incident_minutes_by_month_charts_path, basic_opts('Incident Minutes by Month', 'months')
+    stock_chart incident_minutes_by_month_charts_path, basic_opts('Incident Minutes by Month', 'minutes')
   end
 
   def number_of_incident_by_month
@@ -23,7 +23,7 @@ module StatisticsHelper
         yAxis:
         {
           crosshairs: true,
-          title: { text: 'minutes' }
+          title: { text: x_axis }
         },
         xAxis:
         {
