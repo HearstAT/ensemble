@@ -1,5 +1,6 @@
 class ChefServerReportsController < ApplicationController
   before_action :set_chef_server_report, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /chef_server_reports
   # GET /chef_server_reports.json

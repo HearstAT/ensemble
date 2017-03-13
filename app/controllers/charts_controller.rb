@@ -1,4 +1,5 @@
 class ChartsController < ApplicationController
+before_action :authenticate_user!
 
   def mttr_by_month
     bu_array = Array.new

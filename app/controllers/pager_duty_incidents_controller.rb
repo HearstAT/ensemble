@@ -1,5 +1,7 @@
 class PagerDutyIncidentsController < ApplicationController
   before_action :set_pager_duty_incident, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
 
   def incident_mttr_per_month
     PagerDutyIncident.group(:business_unit).map.each do |bu|
