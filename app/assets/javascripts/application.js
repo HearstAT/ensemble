@@ -17,3 +17,11 @@
 //= require highstock
 //= require chartkick
 //= require bootstrap
+
+$(function () {
+    Highcharts.setOptions({
+		lang: {
+			thousandsSep: ','
+		}
+	});
+});
