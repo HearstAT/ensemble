@@ -15,7 +15,8 @@ class DeviseMailer < Devise::Mailer
     # defaults to [#{devise_mapping}/mailer, devise/mailer] but in this case
     # all the confirmation templates are in my main engine's mailer directory
     opts = {
-      template_path: 'confirmation'
+      template_path: 'confirmation',
+      subject: 'Ensemble email confirmation'
     }.merge(opts)
 
     devise_mail(record, template, opts)
