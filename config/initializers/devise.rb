@@ -15,7 +15,7 @@ Devise.setup do |config|
   config.mailer_sender = 'atat@hearst.com'
 
   # Configure the class responsible to send e-mails.
-  #config.mailer = 'MyMailer'
+  config.mailer = 'DeviseMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -111,7 +111,7 @@ Devise.setup do |config|
   # config.pepper = 'f7749f3538f82d6fd482e7d64628148efb79408e59b33afdd6685211fa7b2d8ff97f159fa21727def1593912699e9a5352137db30d5ea227792133d8f7e97a9d'
 
   # Send a notification email when the user's password is changed
-  # config.send_password_change_notification = false
+  config.send_password_change_notification = false
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
