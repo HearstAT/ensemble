@@ -1,5 +1,6 @@
 class PagerDutyReportsController < ApplicationController
   before_action :set_pager_duty_report, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /pager_duty_reports
   # GET /pager_duty_reports.json
