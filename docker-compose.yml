@@ -37,28 +37,28 @@ services:
     env_file:
       - 'docker.env'
 
-#  sidekiq:
-#    depends_on:
-#      - 'postgres'
-#      - 'redis'
-#    build: .
-#    command: sidekiq -C config/sidekiq.yml.erb
-#    volumes:
-#      - '.:/opt/ensemble'
-#    env_file:
-#      - 'docker.env'
+  sidekiq:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    command: sidekiq -C config/sidekiq.yml.erb
+    volumes:
+      - '.:/opt/ensemble'
+    env_file:
+      - 'docker.env'
 
-#  cable:
-#    depends_on:
-#      - 'redis'
-#    build: .
-#    command: puma -p 28080 cable/config.ru
-#    ports:
-#      - '28080:28080'
-#    volumes:
-#      - '.:/opt/ensemble'
-#    env_file:
-#      - 'docker.env'
+  cable:
+    depends_on:
+      - 'redis'
+    build: .
+    command: puma -p 28080 cable/config.ru
+    ports:
+      - '28080:28080'
+    volumes:
+      - '.:/opt/ensemble'
+    env_file:
+      - 'docker.env'
 
 volumes:
   redis:
