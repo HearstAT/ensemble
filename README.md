@@ -1,11 +1,10 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# ENSEMBLE
 
 Things you may want to cover:
 
 * Ruby version
+
+This has been developed/tested on Ruby 2.3.x
 
 * System dependencies
 

@@ -41,5 +41,5 @@ production:
   pool: 10
   username: ensemble
   password: changeme
-  host: update-me.rds.amazonaws.com
+  host: localhost
   

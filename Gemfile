@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
@@ -32,12 +30,14 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # graphing and charting capabilities
-gem 'chartkick', :git => 'https://github.com/aaronblythe/chartkick.git', :branch => 'add_highstock'
-gem "groupdate", github: "ankane/groupdate", branch: "sqlite"
+gem 'chartkick', git: 'https://github.com/aaronblythe/chartkick.git', branch:'add_highstock'
+gem 'groupdate', github: 'ankane/groupdate', branch: 'sqlite'
 gem 'faker'
 gem 'highstock-rails'
 gem 'will_paginate'
 gem 'kaminari', "~> 0.17.0"
+# Use Sidekiq as a background job processor through Active Job
+gem 'sidekiq', '~> 4.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -45,6 +45,8 @@ group :development, :test do
 end
 
 group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
@@ -59,9 +61,9 @@ end
 
 gem 'httparty'
 gem 'devise'
-gem 'activeadmin', github: 'activeadmin/activeadmin' 
+gem 'activeadmin', '~> 1.0.0.pre5'
 # Rails 5 work around
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'inherited_resources', '~> 1.7'
 
 gem 'daemons'
 gem 'delayed_job'
@@ -75,4 +77,4 @@ gem 'whenever', require: false
 #gem 'rake', '~> 11.3'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data'

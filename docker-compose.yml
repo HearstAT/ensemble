@@ -1,14 +1,65 @@
 version: '2'
+
 services:
-  hellorubyvscode:
+  postgres:
+    image: 'postgres:9.5'
+    environment:
+      POSTGRES_USER: 'my_dockerized_app'
+      POSTGRES_PASSWORD: 'yourpassword'
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  redis:
+    image: 'redis:3.2-alpine'
+    command: redis-server --requirepass yourpassword
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/var/lib/redis/data'
+
+  website:
+    depends_on:
+      - 'postgres'
+      - 'redis'
     build: .
     # To run with the debugger
-    command: bundle exec rdebug-ide --host 0.0.0.0 --port 1234 -- bin/rails s -b 0.0.0.0 -p 3000 -e development
+    #command: bundle exec rdebug-ide --host 0.0.0.0 --port 1234 -- bin/rails s -b 0.0.0.0 -p 3000 -e development
     # To run without the debugger
     #command: bundle exec /app/bin/rails s -b 0.0.0.0 -p 3000 -e development
     volumes:
-      - .:/app
+      - .:/opt/ensemble
     ports:
       - "1234:1234"
       - "3000:3000"
       - "26162:26162"
+    env_file:
+      - 'docker.env'
+
+#  sidekiq:
+#    depends_on:
+#      - 'postgres'
+#      - 'redis'
+#    build: .
+#    command: sidekiq -C config/sidekiq.yml.erb
+#    volumes:
+#      - '.:/opt/ensemble'
+#    env_file:
+#      - 'docker.env'
+
+#  cable:
+#    depends_on:
+#      - 'redis'
+#    build: .
+#    command: puma -p 28080 cable/config.ru
+#    ports:
+#      - '28080:28080'
+#    volumes:
+#      - '.:/opt/ensemble'
+#    env_file:
+#      - 'docker.env'
+
+volumes:
+  redis:
+  postgres:

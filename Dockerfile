@@ -1,38 +1,41 @@
-FROM ruby:2.2
+FROM ruby:2.3-alpine
+MAINTAINER Hearst Automation Team
+ENV APP_HOME /opt/ensemble
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
 
-#FROM ruby:2.3
-# Ruby 2.3 is failing with 
-# hellorubyvscode_1  | bundler: failed to load command: rdebug-ide (/app/vendor/bundle/ruby/2.3.0/bin/rdebug-ide)
-# hellorubyvscode_1  | LoadError: cannot load such file -- debase_internals
-# may need to use the 2.2.x pre-release betas https://rubygems.org/gems/debase
+COPY supervisord.conf /etc/supervisor.d/supervisord.conf
+COPY . .
 
-RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs postgresql git && \
-    apt-get autoremove -y && \
-    apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN apk update $$ apk add build_deps &&\ 
+    apk add bash supervisor git nodejs \
+    openssl-dev postgresql-dev libpq postgresql-client libxml2-dev libxslt-dev &&\
+    runDeps="$( \
+		scanelf --needed --nobanner --recursive /usr/local \
+			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+			| sort -u \
+			| xargs -r apk info --installed \
+			| sort -u \
+	)" &&\
+    if [ -f Gemfile.lock ]; then rm -f Gemfile.lock; fi &&\
+	apk add --virtual .ruby-builddeps $runDeps \
+    build-base ruby-dev libc-dev linux-headers && \
+    gem install bundler &&\
+    bundle install --without development --binstubs &&\
+    # bundle install --without development --binstubs --path vendor/bundle &&\
+    # gem install sidekiq with development dependencies
+    #gem install sidekiq --dev &&\
+    #sed -i '/.*SECRET_KEY_BASE.*/c\'"  secret_key_base: `bundle exec rake secret RAILS_ENV=production`"'' /opt/ensemble/config/secrets.yml &&\
+    yes | bundle exec rails app:update:bin &&\
+    bundle exec rake assets:precompile RAILS_ENV=production
+    #sed -i '/.*update-me.rds.amazonaws.com.*/c\'"  host: localhost"'' /opt/ensemble/config/database.yml &&\
+    #bundle exec rake db:create RAILS_ENV=production &&\
+    #bundle exec rake db:migrate RAILS_ENV=production $$\
+    #apk del .ruby-builddeps &&\
+    #rm -rf /var/cache/apk/* &&\
+    #rm -rf /tmp/*
 
-# default ruby-debug port
-EXPOSE 1234
-# dispatcher port
-EXPOSE 26162
 # rails
 EXPOSE 3000
-COPY . /app
-WORKDIR /app
-RUN if [ -f Gemfile.lock ]; then rm -f Gemfile.lock; fi &&\
-    rm -rf vendor/bundle
 
-# have to bundle install to run rdebug-ide
-# have to bundle install --binstubs --path vendor/bundle for sinatra
-# TODO clean this up so only have to run one
-RUN bundle install 
-RUN bundle install --binstubs --path vendor/bundle
-
-# command/CMD is now in the docker-compose
-
-# This command allows access to sinatra from the host
-#CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4568"]
-
-# These two are things I have tried but do not fully work yet.
-#CMD ["bundle", "exec", "rdebug-ide", "--host", "0.0.0.0" , "--port", "1234", "rackup"]
-#CMD ["bundle", "exec", "rdebug-ide", "--host", "0.0.0.0" , "--port", "1234", "--dispatcher-port", "26162", "--", "bin/rackup", "-p", "4567", "--host", "0.0.0.0"]
+CMD ["supervisord", "-c", "/etc/supervisor.d/supervisord.conf", "-n"]
