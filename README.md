@@ -6,6 +6,23 @@ Things you may want to cover:
 
 This has been developed/tested on Ruby 2.3.x
 
+* Running in Docker Compose
+
+    docker-compose up --build
+    docker-compose exec website bundle exec bin/rails db:create
+    docker-compose exec website bundle exec bin/rails db:migrate
+
+For creating some test data:
+
+    docker-compose exec website bundle exec bin/rails db:seed
+
+Then navigate to http://localhost:3000 and login with the credentials from the db/seeds.rb file
+
+Cleaning up:
+
+    docker-compose stop
+    docker-compose rm
+
 * System dependencies
 
 * Configuration
