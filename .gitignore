@@ -44,3 +44,5 @@ config/initializers/secret_token.rb
 supervisord.pid
 supervisord.log
 bin/bundler
+
+data/*
