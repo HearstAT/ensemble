@@ -9,12 +9,12 @@ This has been developed/tested on Ruby 2.3.x
 * Running in Docker Compose
 
     docker-compose up --build
-    docker-compose exec website bundle exec bin/rails db:create
-    docker-compose exec website bundle exec bin/rails db:migrate
+    docker-compose exec website bundle exec bin/rake db:create
+    docker-compose exec website bundle exec bin/rake db:migrate
 
 For creating some test data:
 
-    docker-compose exec website bundle exec bin/rails db:seed
+    docker-compose exec website bundle exec bin/rake db:seed
 
 Then navigate to http://localhost:3000 and login with the credentials from the db/seeds.rb file
 

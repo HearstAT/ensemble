@@ -1,5 +1,7 @@
 FROM ruby:2.3-alpine
 MAINTAINER Hearst Automation Team
+
+# Working directory
 ENV APP_HOME /opt/ensemble
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
@@ -9,7 +11,8 @@ COPY . .
 
 RUN apk update $$ apk add build_deps &&\ 
     apk add bash supervisor git nodejs \
-    openssl-dev postgresql-dev libpq postgresql-client libxml2-dev libxslt-dev &&\
+    openssl-dev postgresql-dev libpq postgresql-client \
+    libxml2-dev libxslt-dev &&\ 
     runDeps="$( \
 		scanelf --needed --nobanner --recursive /usr/local \
 			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
@@ -22,18 +25,29 @@ RUN apk update $$ apk add build_deps &&\
     build-base ruby-dev libc-dev linux-headers && \
     gem install bundler &&\
     bundle install --without development --binstubs &&\
-    # bundle install --without development --binstubs --path vendor/bundle &&\
-    # gem install sidekiq with development dependencies
-    #gem install sidekiq --dev &&\
-    #sed -i '/.*SECRET_KEY_BASE.*/c\'"  secret_key_base: `bundle exec rake secret RAILS_ENV=production`"'' /opt/ensemble/config/secrets.yml &&\
     yes | bundle exec rails app:update:bin &&\
-    bundle exec rake assets:precompile RAILS_ENV=production
+    bundle exec rake assets:precompile RAILS_ENV=production &&\
+    
+    # set up sendmail
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories &&\
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories &&\
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories &&\
+    apk update $$ add exim &&\
+    #mkdir -p /var/spool/exim &&\
+    #mkdir -p /usr/lib/exim/ &&\
+    mkdir -p /var/log/exim &&\
+    touch /var/log/exim/mainlog &&\
+    chmod 666 /var/log/exim/mainlog &&\
+
+    #sed -i '/.*SECRET_KEY_BASE.*/c\'"  secret_key_base: `bundle exec rake secret RAILS_ENV=production`"'' /opt/ensemble/config/secrets.yml &&\
     #sed -i '/.*update-me.rds.amazonaws.com.*/c\'"  host: localhost"'' /opt/ensemble/config/database.yml &&\
     #bundle exec rake db:create RAILS_ENV=production &&\
     #bundle exec rake db:migrate RAILS_ENV=production $$\
-    #apk del .ruby-builddeps &&\
-    #rm -rf /var/cache/apk/* &&\
-    #rm -rf /tmp/*
+    
+    # clean up
+    apk del .ruby-builddeps &&\
+    rm -rf /var/cache/apk/* &&\
+    rm -rf /tmp/*
 
 # rails
 EXPOSE 3000

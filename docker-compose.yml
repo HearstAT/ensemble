@@ -30,10 +30,14 @@ services:
     #command: bundle exec /app/bin/rails s -b 0.0.0.0 -p 3000 -e development
     volumes:
       - .:/opt/ensemble
+      #- "./conf/exim4.conf:/etc/exim/exim.conf:ro"
+      #- "./conf/ssl/exim.crt:/etc/ssl/exim.crt:ro"
+      #- "./conf/ssl/exim.pem:/etc/ssl/exim.pem:ro"
     ports:
       - "1234:1234"
       - "3000:3000"
       - "26162:26162"
+      #- "25:25"
     env_file:
       - 'docker.env'
 
