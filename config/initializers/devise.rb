@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'atat@hearst.com'
+  config.mailer_sender = ENV['ACTION_MAILER_HOST']
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'DeviseMailer'
@@ -111,7 +111,7 @@ Devise.setup do |config|
   # config.pepper = 'f7749f3538f82d6fd482e7d64628148efb79408e59b33afdd6685211fa7b2d8ff97f159fa21727def1593912699e9a5352137db30d5ea227792133d8f7e97a9d'
 
   # Send a notification email when the user's password is changed
-  config.send_password_change_notification = false
+  config.send_password_change_notification = true
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

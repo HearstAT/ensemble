@@ -46,3 +46,5 @@ supervisord.log
 bin/bundler
 
 data/*
+production.env
+.env

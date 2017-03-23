@@ -39,7 +39,7 @@ services:
       - "26162:26162"
       #- "25:25"
     env_file:
-      - 'docker.env'
+      - '.env'
 
   sidekiq:
     depends_on:
@@ -50,7 +50,7 @@ services:
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - 'docker.env'
+      - '.env'
 
   cable:
     depends_on:
@@ -62,7 +62,7 @@ services:
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - 'docker.env'
+      - '.env'
 
 volumes:
   redis:
