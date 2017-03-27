@@ -10,6 +10,10 @@ threads threads_count, threads_count
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
 port        ENV.fetch("PORT") { 3000 }
+# Bind on a specific TCP address. We won't bother using unix sockets because
+# nginx will be running in a different Docker container.
+# bind "tcp://#{ENV['BIND_ON']}"
+
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -21,7 +25,16 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+
+
+# An internal health check to verify that workers have checked in to the master
+# process within a specific time frame. If this time is exceeded, the worker
+# will automatically be rebooted. Defaults to 60s.
+#
+# Under most situations you will not have to tweak this value, which is why it
+# is coded into the config rather than being an environment variable.
+worker_timeout 30
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -42,6 +55,9 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # on_worker_boot do
 #   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 # end
+
+# The path to the puma binary without any arguments.
+# restart_command 'puma'
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart

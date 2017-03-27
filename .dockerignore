@@ -1,0 +1,10 @@
+.git
+.byebug_history
+/log/*
+/tmp/*
+supervisord.pid
+supervisord.log
+vendor/*
+Gemfile.lock
+.vscode/*
+.bundle/*

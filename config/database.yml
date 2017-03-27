@@ -37,9 +37,9 @@ production:
   # database: db/production.sqlite3
   adapter: postgresql
   encoding: unicode
-  database: ensemble_production
+  database: <%= ENV["DATABASE"] %>
   pool: 10
-  username: ensemble
-  password: changeme
-  host: update-me.rds.amazonaws.com
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
   
