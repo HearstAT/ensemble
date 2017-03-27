@@ -2,6 +2,7 @@ version: '2'
 
 services:
   postgres:
+    restart: always
     image: 'postgres:9.5'
     environment:
       POSTGRES_USER: 'ensemble'
@@ -12,6 +13,7 @@ services:
       - './data/postgres:/var/lib/postgresql/data'
 
   redis:
+    restart: always
     image: 'redis:3.2-alpine'
     command: redis-server --requirepass yourpassword
     ports:
@@ -20,6 +22,7 @@ services:
       - 'redis:/var/lib/redis/data'
 
   website:
+    restart: always
     depends_on:
       - 'postgres'
       - 'redis'
@@ -42,6 +45,7 @@ services:
       - '.env'
 
   sidekiq:
+    restart: always
     depends_on:
       - 'postgres'
       - 'redis'
@@ -53,6 +57,7 @@ services:
       - '.env'
 
   cable:
+    restart: always
     depends_on:
       - 'redis'
     build: .
