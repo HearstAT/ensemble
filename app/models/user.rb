@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
-
+  has_many :user_business_units
+  has_many :business_units, through: :user_business_units
+  accepts_nested_attributes_for :user_business_units, reject_if: :new_record?
   #attr_accessible :email, :password, :password_confirmation,
   #                :remember_me
 

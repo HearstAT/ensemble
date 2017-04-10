@@ -44,6 +44,13 @@ namespace :gather do
       end
 
       csv_hash.each do |incident|
+        unless PagerDutyService.exists?(pager_duty_service_id: incident[:service_id])
+          pds = PagerDutyService.new
+          pds.pager_duty_config_id = pd.id
+          pds.pager_duty_service_id = incident[:service_id]
+          pds.name = incident[:service_name]
+          pds.save!
+        end
         if PagerDutyIncident.exists?(pager_duty_id: incident[:id])
           pdi = PagerDutyIncident.find_by(pager_duty_id: incident[:id])
         else
