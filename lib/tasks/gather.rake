@@ -10,6 +10,46 @@ namespace :gather do
 
   desc "TODO"
   task new_relic: :environment do
+
+    NewRelicConfig.all.each do |nr|
+      headers = {
+        'X-Api-Key' => nr.api_key
+      }
+      response = HTTParty.get('https://api.newrelic.com/v2/applications.json',
+                              headers: headers)
+
+      applications = response.parsed_response['applications']
+      applications.each do |app|
+        puts "************"
+        puts app.inspect
+        puts "app id is: #{app['id']}"
+        puts "************"
+        if NewRelicApplication.exists?(new_relic_application_id: app['id'])
+          nr_app = NewRelicApplication.find_by(new_relic_application_id: app['id'])
+          puts "found #{app['id']}"
+        else
+          nr_app = NewRelicApplication.new
+          nr_app.new_relic_application_id = app['id']
+          puts "new #{app['id']}"
+        end
+        nr_app.name
+        nr_app.language = app['language']
+        nr_app.health_status = app['health_status']
+        nr_app.reporting = app['reporting']
+        if app['reporting']
+          nr_app.last_reported_at = app['last_reported_at']
+          nr_app.response_time = app['application_summary']['response_time']
+          nr_app.throughput = app['application_summary']['throughput']
+          nr_app.error_rate = app['application_summary']['error_rate']
+          nr_app.apdex_target = app['application_summary']['apdex_target']
+          nr_app.apdex_score = app['application_summary']['apdex_score']
+          nr_app.host_count = app['application_summary']['host_count']
+          nr_app.instance_count = app['application_summary']['instance_count']
+        end
+        nr_app.save!
+      end
+
+    end
   end
 
   desc "Gathers the incidents data for the last twelve months for all configured pagerduty accounts"

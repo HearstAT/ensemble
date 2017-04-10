@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410041819) do
+ActiveRecord::Schema.define(version: 20170410145727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,26 @@ ActiveRecord::Schema.define(version: 20170410041819) do
     t.string   "domain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "new_relic_applications", force: :cascade do |t|
+    t.integer  "new_relic_config_id"
+    t.integer  "new_relic_application_id"
+    t.string   "name"
+    t.string   "language"
+    t.string   "health_status"
+    t.boolean  "reporting"
+    t.datetime "last_reported_at"
+    t.decimal  "response_time"
+    t.decimal  "throughput"
+    t.decimal  "error_rate"
+    t.decimal  "apdex_target"
+    t.decimal  "apdex_score"
+    t.integer  "host_count"
+    t.integer  "instance_count"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["new_relic_config_id"], name: "index_new_relic_applications_on_new_relic_config_id", using: :btree
   end
 
   create_table "new_relic_configs", force: :cascade do |t|
@@ -213,6 +233,7 @@ ActiveRecord::Schema.define(version: 20170410041819) do
   add_foreign_key "chef_configs", "business_units"
   add_foreign_key "chef_server_reports", "business_units"
   add_foreign_key "contacts", "business_units"
+  add_foreign_key "new_relic_applications", "new_relic_configs"
   add_foreign_key "new_relic_configs", "business_units"
   add_foreign_key "new_relic_reports", "business_units"
   add_foreign_key "pager_duty_configs", "business_units"
