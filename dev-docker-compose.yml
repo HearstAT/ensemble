@@ -1,16 +1,16 @@
 version: '2'
 
 services:
-#  postgres:
-#    restart: always
-#    image: 'postgres:9.5'
-#    environment:
-#      POSTGRES_USER: 'ensemble'
-#      POSTGRES_PASSWORD: 'changeme'
-#    ports:
-#      - '5432:5432'
-#    volumes:
-#      - './data/postgres:/var/lib/postgresql/data'
+  postgres:
+    restart: always
+    image: 'postgres:9.5'
+    environment:
+      POSTGRES_USER: 'ensemble'
+      POSTGRES_PASSWORD: 'changeme'
+    ports:
+      - '5432:5432'
+    volumes:
+      - './data/postgres:/var/lib/postgresql/data'
 
   redis:
     restart: always
@@ -24,7 +24,7 @@ services:
   website:
     restart: always
     depends_on:
-#      - 'postgres'
+      - 'postgres'
       - 'redis'
     build: .
     # To run with the debugger
@@ -42,19 +42,19 @@ services:
       - "26162:26162"
       #- "25:25"
     env_file:
-      - '.env'
+      - 'production.env'
 
   sidekiq:
     restart: always
     depends_on:
-#      - 'postgres'
+      - 'postgres'
       - 'redis'
     build: .
     command: sidekiq -C config/sidekiq.yml.erb
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - '.env'
+      - 'production.env'
 
   cable:
     restart: always
@@ -67,8 +67,8 @@ services:
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - '.env'
+      - 'production.env'
 
 volumes:
   redis:
-#  postgres:
+  postgres:

@@ -1,16 +1,6 @@
 version: '2'
 
 services:
-#  postgres:
-#    restart: always
-#    image: 'postgres:9.5'
-#    environment:
-#      POSTGRES_USER: 'ensemble'
-#      POSTGRES_PASSWORD: 'changeme'
-#    ports:
-#      - '5432:5432'
-#    volumes:
-#      - './data/postgres:/var/lib/postgresql/data'
 
   redis:
     restart: always
@@ -24,9 +14,10 @@ services:
   website:
     restart: always
     depends_on:
-#      - 'postgres'
       - 'redis'
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile-dev
     # To run with the debugger
     #command: bundle exec rdebug-ide --host 0.0.0.0 --port 1234 -- bin/rails s -b 0.0.0.0 -p 3000 -e development
     # To run without the debugger
@@ -40,35 +31,38 @@ services:
       - "1234:1234"
       - "3000:3000"
       - "26162:26162"
+      - 2345:5432
       #- "25:25"
     env_file:
-      - '.env'
+      - 'development.env'
 
   sidekiq:
     restart: always
     depends_on:
-#      - 'postgres'
       - 'redis'
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile-dev
     command: sidekiq -C config/sidekiq.yml.erb
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - '.env'
+      - 'development.env'
 
   cable:
     restart: always
     depends_on:
       - 'redis'
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile-dev
     command: puma -p 28080 cable/config.ru
     ports:
       - '28080:28080'
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - '.env'
+      - 'development.env'
 
 volumes:
   redis:
-#  postgres:

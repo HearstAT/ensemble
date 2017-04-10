@@ -1,6 +1,15 @@
+ActiveAdmin.register PagerDutyService do
+  belongs_to :pager_duty_config
+  navigation_menu :pager_duty_config
+end
+
 ActiveAdmin.register PagerDutyConfig do
   before_action :authenticate_active_admin_user!
-  permit_params :sub_domain, :api_key, :service_api_key, :business_unit_id
+  permit_params :sub_domain,
+                :api_key,
+                :service_api_key,
+                :business_unit_id,
+                pager_duty_service_attributes: [:id, :display]
 
   index do
     selectable_column
@@ -25,6 +34,11 @@ ActiveAdmin.register PagerDutyConfig do
       f.input :sub_domain
       f.input :api_key, as: :password
       f.input :service_api_key, as: :password
+      f.has_many :pager_duty_service, new_record: false do |pds|
+        pds.input :name
+        pds.input :pager_duty_service_id
+        pds.input :display
+      end
     end
     f.actions
   end
@@ -36,10 +50,17 @@ ActiveAdmin.register PagerDutyConfig do
       row :sub_domain
       # TODO: clean this up some
       row :api_key do
-         pdc.api_key.gsub!(/[a-zA-Z0-9]/, '*')
+        pdc.api_key.gsub!(/[a-zA-Z0-9]/, '*')
       end
       row :service_api_key do
-         pdc.service_api_key.gsub!(/[a-zA-Z0-9]/, '*')
+        pdc.service_api_key.gsub!(/[a-zA-Z0-9]/, '*')
+      end
+      row :pager_duty_service do
+        table_for pdc.pager_duty_service do
+          column :name
+          column :pager_duty_service_id
+          column :display
+        end
       end
       row :created_at
       row :updated_at
