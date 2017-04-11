@@ -17,12 +17,12 @@ ActiveAdmin.register BusinessUnit do
       f.input :users, as: :check_boxes, collection: User.all
     end
 
-    f.inputs do
-      f.has_many :users, allow_destroy: true, new_record: true do |a|
-        a.input :user
-        a.input :user_business_unit
-      end
-    end
+    #f.inputs do
+    #  f.has_many :users, allow_destroy: true, new_record: true do |a|
+    #    a.input :user
+    #    a.input :user_business_unit
+    #  end
+    #end
     f.actions
   end
 
