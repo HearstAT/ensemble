@@ -32,6 +32,7 @@ namespace :gather do
           nr_app.new_relic_application_id = app['id']
           puts "new #{app['id']}"
         end
+        nr_app.new_relic_config_id = nr.id
         nr_app.name
         nr_app.language = app['language']
         nr_app.health_status = app['health_status']

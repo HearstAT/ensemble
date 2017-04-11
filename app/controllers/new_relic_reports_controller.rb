@@ -6,6 +6,9 @@ class NewRelicReportsController < ApplicationController
   # GET /new_relic_reports.json
   def index
     @new_relic_reports = NewRelicReport.all
+    @new_relic_configs = NewRelicConfig.all
+    @new_relic_applications = NewRelicApplication.all
+    @business_units = BusinessUnit.all
   end
 
   # GET /new_relic_reports/1
