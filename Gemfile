@@ -59,6 +59,10 @@ group :development do
   gem 'ruby-debug-ide', '~> 0.6.1.beta4'
 end
 
+group :test do
+  gem 'simplecov', require: false
+end
+
 gem 'httparty'
 gem 'devise'
 gem 'activeadmin', '~> 1.0.0.pre5'

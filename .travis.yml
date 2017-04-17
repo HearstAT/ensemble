@@ -1,0 +1,9 @@
+sudo: required
+language: ruby
+rvm:
+  - 2.3.0
+  - 2.3.3
+install:
+  - bundle install --binstubs --path vendor/bundle
+script:
+  - bundle exec rake test
