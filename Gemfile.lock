@@ -67,6 +67,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.1)
+      public_suffix (~> 2.0, >= 2.0.2)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (7.1.4)
@@ -77,6 +79,13 @@ GEM
       thor (~> 0.19)
     builder (3.2.3)
     byebug (9.0.6)
+    capybara (2.13.0)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     chronic (0.10.2)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -102,9 +111,15 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.3)
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
     faker (1.7.3)
       i18n (~> 0.5)
     ffi (1.9.18)
@@ -161,6 +176,7 @@ GEM
     pg (0.20.0)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
+    public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.1)
     rack-protection (1.5.3)
@@ -203,6 +219,23 @@ GEM
     redis (3.3.3)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     ruby-debug-ide (0.6.1.beta4)
       rake (>= 0.8.1)
     sass (3.4.23)
@@ -260,13 +293,17 @@ GEM
     whenever (0.9.7)
       chronic (>= 0.6.3)
     will_paginate (3.1.5)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre5)
+  bcrypt
   byebug
+  capybara
   chartkick!
   coffee-rails (~> 4.2)
   daemons
@@ -274,6 +311,7 @@ DEPENDENCIES
   delayed_job
   delayed_job_active_record
   devise
+  factory_girl_rails
   faker
   groupdate!
   highstock-rails
@@ -286,6 +324,7 @@ DEPENDENCIES
   pg
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  rspec-rails
   ruby-debug-ide (~> 0.6.1.beta4)
   sass-rails (~> 5.0)
   sidekiq (~> 4.2)

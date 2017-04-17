@@ -7,4 +7,4 @@ install:
   - bundle install --binstubs --path vendor/bundle
 script:
   - bundle exec rake db:migrate RAILS_ENV=test
-  - bundle exec rake test
+  - bundle exec rspec

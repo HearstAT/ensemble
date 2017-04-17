@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410145727) do
+ActiveRecord::Schema.define(version: 20170417183641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,11 @@ ActiveRecord::Schema.define(version: 20170410145727) do
     t.string   "urgency"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "escalation_policy_name"
+    t.integer  "escalation_count"
+    t.integer  "auto_escalation_count"
+    t.string   "assigned_to_user_ids"
+    t.string   "assigned_to_user_names"
     t.index ["business_unit_id"], name: "index_pager_duty_incidents_on_business_unit_id", using: :btree
   end
 
