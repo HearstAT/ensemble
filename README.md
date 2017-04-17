@@ -1,4 +1,5 @@
 # ENSEMBLE
+[![Build Status Master](https://travis-ci.org/HearstAT/ensemble.svg?branch=master)](https://travis-ci.org/HearstAT/ensemble)
 
 Things you may want to cover:
 
