@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root 'pager_duty_reports#index'
-  
+
   devise_for :users, controllers: { confirmations: 'confirmations' }
-  devise_for :admin_users, {class_name: 'User'}.merge(ActiveAdmin::Devise.config)
+  devise_for :admin_users, { class_name: 'User' }.merge(ActiveAdmin::Devise.config)
   ActiveAdmin.routes(self)
   resources :users
   resources :pager_duty_incidents

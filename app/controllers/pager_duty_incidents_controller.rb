@@ -2,16 +2,6 @@ class PagerDutyIncidentsController < ApplicationController
   before_action :set_pager_duty_incident, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
-
-  def incident_mttr_per_month
-    PagerDutyIncident.group(:business_unit).map.each do |bu|
-      result[bu] = bu.group_by_month(:created_on).average(:seconds_to_resolve)
-    end
-    render json: [{name: 'MTTR', data: result}]
-  end
-
-
-
   # GET /pager_duty_incidents
   # GET /pager_duty_incidents.json
   def index
@@ -26,7 +16,6 @@ class PagerDutyIncidentsController < ApplicationController
 
   # GET /pager_duty_incidents/new
   def new
-    @pager_duty_incident = PagerDutyIncident.new
   end
 
   # GET /pager_duty_incidents/1/edit
@@ -36,41 +25,16 @@ class PagerDutyIncidentsController < ApplicationController
   # POST /pager_duty_incidents
   # POST /pager_duty_incidents.json
   def create
-    @pager_duty_incident = PagerDutyIncident.new(pager_duty_incident_params)
-
-    respond_to do |format|
-      if @pager_duty_incident.save
-        format.html { redirect_to @pager_duty_incident, notice: 'Pager duty incident was successfully created.' }
-        format.json { render :show, status: :created, location: @pager_duty_incident }
-      else
-        format.html { render :new }
-        format.json { render json: @pager_duty_incident.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /pager_duty_incidents/1
   # PATCH/PUT /pager_duty_incidents/1.json
   def update
-    respond_to do |format|
-      if @pager_duty_incident.update(pager_duty_incident_params)
-        format.html { redirect_to @pager_duty_incident, notice: 'Pager duty incident was successfully updated.' }
-        format.json { render :show, status: :ok, location: @pager_duty_incident }
-      else
-        format.html { render :edit }
-        format.json { render json: @pager_duty_incident.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /pager_duty_incidents/1
   # DELETE /pager_duty_incidents/1.json
   def destroy
-    @pager_duty_incident.destroy
-    respond_to do |format|
-      format.html { redirect_to pager_duty_incidents_url, notice: 'Pager duty incident was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private

@@ -16,7 +16,6 @@ class PagerDutyReportsController < ApplicationController
 
   # GET /pager_duty_reports/new
   def new
-    @pager_duty_report = PagerDutyReport.new
   end
 
   # GET /pager_duty_reports/1/edit
@@ -26,41 +25,16 @@ class PagerDutyReportsController < ApplicationController
   # POST /pager_duty_reports
   # POST /pager_duty_reports.json
   def create
-    @pager_duty_report = PagerDutyReport.new(pager_duty_report_params)
-
-    respond_to do |format|
-      if @pager_duty_report.save
-        format.html { redirect_to @pager_duty_report, notice: 'Pager duty report was successfully created.' }
-        format.json { render :show, status: :created, location: @pager_duty_report }
-      else
-        format.html { render :new }
-        format.json { render json: @pager_duty_report.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /pager_duty_reports/1
   # PATCH/PUT /pager_duty_reports/1.json
   def update
-    respond_to do |format|
-      if @pager_duty_report.update(pager_duty_report_params)
-        format.html { redirect_to @pager_duty_report, notice: 'Pager duty report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @pager_duty_report }
-      else
-        format.html { render :edit }
-        format.json { render json: @pager_duty_report.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /pager_duty_reports/1
   # DELETE /pager_duty_reports/1.json
   def destroy
-    @pager_duty_report.destroy
-    respond_to do |format|
-      format.html { redirect_to pager_duty_reports_url, notice: 'Pager duty report was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
