@@ -11,19 +11,18 @@ ActiveAdmin.register BusinessUnit do
                 user_business_unit_attributes: [:id, :user_id, :business_unit_id]
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs 'Admin Details' do
       f.input :name
       f.input :location
       f.input :users, as: :check_boxes, collection: User.all
     end
 
-    #f.inputs do
+    # f.inputs do
     #  f.has_many :users, allow_destroy: true, new_record: true do |a|
     #    a.input :user
     #    a.input :user_business_unit
     #  end
-    #end
+    # end
     f.actions
   end
-
 end

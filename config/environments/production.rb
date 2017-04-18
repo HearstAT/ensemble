@@ -26,7 +26,7 @@ Rails.application.configure do
   config.assets.compile = true
 
   # TODO: temporary config for MVP, will come back to address this
-  #config.serve_static_files = true
+  # config.serve_static_files = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -50,7 +50,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -58,18 +58,18 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "ensemble_#{Rails.env}"
-  #config.action_mailer.perform_caching = false
-  #config.action_mailer.default_url_options = { host: '172.19.0.1' }
+  # config.action_mailer.perform_caching = false
+  # config.action_mailer.default_url_options = { host: '172.19.0.1' }
 
-  #config.action_mailer.delivery_method = :sendmail
+  # config.action_mailer.delivery_method = :sendmail
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
   #   location: '/usr/sbin/sendmail',
   #   arguments: '-i'
   # }
-  #config.action_mailer.perform_deliveries = true
-  #config.action_mailer.raise_delivery_errors = true
-  #config.action_mailer.default_options = {from: 'no-reply@example.com'}
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default_options = {from: 'no-reply@example.com'}
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -89,7 +89,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)

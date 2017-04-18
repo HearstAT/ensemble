@@ -29,7 +29,7 @@ ActiveAdmin.register PagerDutyConfig do
   filter :updated_at
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs 'Admin Details' do
       f.input :business_unit
       f.input :sub_domain
       f.input :api_key, as: :password
@@ -67,5 +67,4 @@ ActiveAdmin.register PagerDutyConfig do
     end
     active_admin_comments
   end
-
 end

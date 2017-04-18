@@ -1,5 +1,4 @@
 module StatisticsHelper
-
   def mttr_by_month
     stock_chart mttr_by_month_charts_path, basic_opts('Mean Time to Resolution (MTTR) by Month', 'minutes')
   end

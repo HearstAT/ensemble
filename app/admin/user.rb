@@ -27,15 +27,14 @@ ActiveAdmin.register User do
   filter :admin
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs 'Admin Details' do
       f.input :name
       f.input :email
       f.input :password
       f.input :password_confirmation
       f.input :admin
-      f.input :business_units, :as => :check_boxes
+      f.input :business_units, as: :check_boxes
     end
     f.actions
   end
-
 end

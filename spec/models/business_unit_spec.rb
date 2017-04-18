@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BusinessUnit, :type => :model do
+RSpec.describe BusinessUnit, type: :model do
   it 'is not valid without name or location' do
     expect(BusinessUnit.new).not_to be_valid
   end
