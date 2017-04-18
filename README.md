@@ -1,5 +1,6 @@
 # ENSEMBLE
 [![Build Status Master](https://travis-ci.org/HearstAT/ensemble.svg?branch=master)](https://travis-ci.org/HearstAT/ensemble)
+[![Code Climate](https://codeclimate.com/github/HearstAT/ensemble/badges/gpa.svg)](https://codeclimate.com/github/HearstAT/ensemble) [![Test Coverage](https://codeclimate.com/github/HearstAT/ensemble/badges/coverage.svg)](https://codeclimate.com/github/HearstAT/ensemble/coverage) [![Issue Count](https://codeclimate.com/github/HearstAT/ensemble/badges/issue_count.svg)](https://codeclimate.com/github/HearstAT/ensemble)
 
 Things you may want to cover:
 
