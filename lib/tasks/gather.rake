@@ -2,15 +2,13 @@ require 'httparty'
 require 'net/http'
 require 'net/https'
 
-
 namespace :gather do
-  desc "TODO"
+  desc 'TODO'
   task chef: :environment do
   end
 
-  desc "TODO"
+  desc 'TODO'
   task new_relic: :environment do
-
     NewRelicConfig.all.each do |nr|
       headers = {
         'X-Api-Key' => nr.api_key
@@ -20,10 +18,10 @@ namespace :gather do
 
       applications = response.parsed_response['applications']
       applications.each do |app|
-        puts "************"
+        puts '************'
         puts app.inspect
         puts "app id is: #{app['id']}"
-        puts "************"
+        puts '************'
         if NewRelicApplication.exists?(new_relic_application_id: app['id'])
           nr_app = NewRelicApplication.find_by(new_relic_application_id: app['id'])
           puts "found #{app['id']}"
@@ -49,11 +47,10 @@ namespace :gather do
         end
         nr_app.save!
       end
-
     end
   end
 
-  desc "Gathers the incidents data for the last twelve months for all configured pagerduty accounts"
+  desc 'Gathers the incidents data for the last twelve months for all configured pagerduty accounts'
   task pagerduty_incidents: :environment do
     since_date = 12.months.ago.beginning_of_day.iso8601
     until_date = Time.now.utc.iso8601
@@ -77,9 +74,9 @@ namespace :gather do
         CSV::Converters[:blank_to_nil] = lambda do |field|
           field && field.empty? ? nil : field
         end
-        csv = CSV.new(res.body, :headers => true, :header_converters => :symbol, :converters => [:all, :blank_to_nil])
+        csv = CSV.new(res.body, headers: true, header_converters: :symbol, converters: [:all, :blank_to_nil])
         puts csv
-        csv_hash = csv.to_a.map {|row| row.to_h }
+        csv_hash = csv.to_a.map(&:to_h)
       rescue StandardError => e
         puts "HTTP Request failed (#{e.message})"
       end
@@ -127,31 +124,30 @@ namespace :gather do
     end
   end
 
-  desc "Deprecated this was the first attempt"
+  desc 'Deprecated this was the first attempt'
   task pagerduty: :environment do
     SINCE_DATE = 6.months.ago.beginning_of_day.iso8601
     UNTIL_DATE = Time.now.utc.iso8601
-    TIMEFRAME = 'monthly'
+    TIMEFRAME = 'monthly'.freeze
 
     PagerDutyConfig.all.each do |pd|
-
       ENDPOINT = "https://#{pd.sub_domain}.pagerduty.com/api/v1/reports/" \
                 "incidents_per_time/?since=#{SINCE_DATE}&until=#{UNTIL_DATE}" \
-                "&rollup=#{TIMEFRAME}"
-      TOKEN_STRING = "Token token=#{pd.api_key}"
+                "&rollup=#{TIMEFRAME}".freeze
+      TOKEN_STRING = "Token token=#{pd.api_key}".freeze
 
       response = HTTParty.get(
         ENDPOINT,
         headers: {
-          'Content-Type' => 'application/json', 
+          'Content-Type' => 'application/json',
           'Authorization' => TOKEN_STRING
         }
       )
 
-      puts "********** parsed response ********"
-      puts response.parsed_response["incidents"].inspect
-      response.parsed_response["incidents"].each do |data|
-        puts "********** data ********"
+      puts '********** parsed response ********'
+      puts response.parsed_response['incidents'].inspect
+      response.parsed_response['incidents'].each do |data|
+        puts '********** data ********'
         puts data
         pdr = PagerDutyReport.new
         pdr.business_unit = pd.business_unit
@@ -161,10 +157,8 @@ namespace :gather do
         pdr.end_date = data['end']
         pdr.save!
       end
-      puts "********** response body ********"
+      puts '********** response body ********'
       puts response.body
     end
-    
   end
-
 end

@@ -10,8 +10,7 @@ class NewRelicConfigsController < ApplicationController
 
   # GET /new_relic_configs/1
   # GET /new_relic_configs/1.json
-  def show
-  end
+  def show; end
 
   # GET /new_relic_configs/new
   def new
@@ -19,8 +18,7 @@ class NewRelicConfigsController < ApplicationController
   end
 
   # GET /new_relic_configs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /new_relic_configs
   # POST /new_relic_configs.json
@@ -63,13 +61,14 @@ class NewRelicConfigsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_new_relic_config
-      @new_relic_config = NewRelicConfig.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def new_relic_config_params
-      params.require(:new_relic_config).permit(:business_unit_id, :account_number, :api_key)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_new_relic_config
+    @new_relic_config = NewRelicConfig.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def new_relic_config_params
+    params.require(:new_relic_config).permit(:business_unit_id, :account_number, :api_key)
+  end
 end

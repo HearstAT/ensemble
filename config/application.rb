@@ -29,7 +29,7 @@ module Ensemble
     #   location: '/usr/sbin/sendmail',
     #   arguments: '-i'
     # }
-    #config.action_mailer.smtp_settings = {
+    # config.action_mailer.smtp_settings = {
     #  address:              ENV['SMTP_ADDRESS'],
     #  port:                 ENV['SMTP_PORT'].to_i,
     #  domain:               ENV['SMTP_DOMAIN'],
@@ -37,19 +37,18 @@ module Ensemble
     #  password:             ENV['SMTP_PASSWORD'],
     #  authentication:       ENV['SMTP_AUTH'],
     #  enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] == 'true'
-    #}
+    # }
 
     config.action_mailer.default_url_options = {
       host: ENV['ACTION_MAILER_HOST']
     }
     config.action_mailer.default_options = {
       from: ENV['ACTION_MAILER_DEFAULT_FROM']
-   }
+    }
 
-  config.generators do |g|
-    g.test_framework :rspec, fixture: true
-    g.fixture_replacement :factory_girl, dir: "spec/factories/"
-  end
-
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_girl, dir: 'spec/factories/'
+    end
   end
 end

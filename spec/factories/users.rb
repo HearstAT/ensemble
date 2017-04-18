@@ -7,11 +7,11 @@ FactoryGirl.define do
     # is_active true
   end
 
-  factory :confirmed_user, :parent => :user do
-    after(:create) { |user| user.confirm }
+  factory :confirmed_user, parent: :user do
+    after(:create, &:confirm)
   end
 
-  factory :admin_user, :parent => :confirmed_user do
+  factory :admin_user, parent: :confirmed_user do
     admin true
   end
 end
