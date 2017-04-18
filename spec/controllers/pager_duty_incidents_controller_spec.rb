@@ -1,5 +1,14 @@
 require 'rails_helper'
 
+describe PagerDutyIncidentsController do
+  describe 'GET #index' do
+    it 'requires login' do
+      get :index
+      expect(response).to redirect_to "/users/sign_in"
+    end
+  end
+end
+
 feature 'Logged in access to incidents', type: :feature do
   scenario "visitor finds incident through links" do
     FactoryGirl.create(:domain)
@@ -11,14 +20,4 @@ feature 'Logged in access to incidents', type: :feature do
     click_link "Show"
     expect(page).to have_content "MyString"
   end
-end
-
-describe PagerDutyIncidentsController do
-  describe 'GET #index' do
-    it 'requires login' do
-      get :index
-      expect(response).to redirect_to "/users/sign_in"
-    end
-  end
-
 end

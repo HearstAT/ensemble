@@ -5,7 +5,7 @@ RSpec.describe Domain, :type => :model do
     expect(Domain.new).not_to be_valid
   end
 
-  it 'is not valid without name' do
+  it 'is valid with domain' do
     domain = create(:domain)
     expect(domain).to be_valid
   end

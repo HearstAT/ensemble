@@ -62,6 +62,7 @@ end
 
 group :test do
   gem 'simplecov', require: false
+  gem "codeclimate-test-reporter"
   gem 'factory_girl_rails'
   gem 'capybara'
 end

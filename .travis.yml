@@ -8,3 +8,9 @@ install:
 script:
   - bundle exec rake db:migrate RAILS_ENV=test
   - bundle exec rspec
+addons:
+  code_climate:
+    repo_token: <token>
+# regular test configuration
+after_success:
+  - bundle exec codeclimate-test-reporter

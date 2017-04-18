@@ -87,6 +87,8 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     chronic (0.10.2)
+    codeclimate-test-reporter (1.0.7)
+      simplecov
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -305,6 +307,7 @@ DEPENDENCIES
   byebug
   capybara
   chartkick!
+  codeclimate-test-reporter
   coffee-rails (~> 4.2)
   daemons
   debase (~> 0.2.2.beta10)
