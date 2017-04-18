@@ -1,29 +1,29 @@
-engines:
-  bundler-audit:
+--- 
+engines: 
+  brakeman: 
     enabled: true
-  rubocop:
+  bundler-audit: 
     enabled: true
-  brakeman:
+  csslint: 
     enabled: true
-  eslint:
+  duplication: 
+    config: 
+      languages: 
+        - ruby
+        - javascript
     enabled: true
-  csslint:
+  eslint: 
     enabled: true
-  fixme:
+  fixme: 
     enabled: true
-  duplication:
+  rubocop: 
     enabled: true
-    config:
-      languages:
-      - ruby
-      	# mass_threshold: 30
-      - javascript
-ratings:
-  paths:
-  - app/**
-  - lib/**
-  - "**.rb"
-exclude_paths:
-- spec/**/*
-- "**/vendor/**/*"
-- "public/**/*"
+exclude_paths: 
+  - spec/**/*
+  - "**/vendor/**/*"
+  - public/**/*
+ratings: 
+  paths: 
+    - app/**
+    - lib/**
+    - "**.rb"
