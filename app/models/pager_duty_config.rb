@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PagerDutyConfig < ApplicationRecord
   belongs_to :business_unit
   has_many :pager_duty_service

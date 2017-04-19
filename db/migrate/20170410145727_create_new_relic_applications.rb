@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateNewRelicApplications < ActiveRecord::Migration[5.0]
   def change
     create_table :new_relic_applications do |t|

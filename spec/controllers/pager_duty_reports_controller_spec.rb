@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe PagerDutyReportsController do
@@ -14,10 +15,10 @@ feature 'Logged in access to pager duty reports', type: :feature do
     FactoryGirl.create(:domain)
     user = FactoryGirl.create(:confirmed_user)
     login_as(user, scope: :user)
-    bu = FactoryGirl.create(:business_unit)
-    pdc = FactoryGirl.create(:pager_duty_config)
-    pdr = FactoryGirl.create(:pager_duty_incident)
-    pdr = FactoryGirl.create(:pager_duty_report)
+    FactoryGirl.create(:business_unit)
+    FactoryGirl.create(:pager_duty_config)
+    FactoryGirl.create(:pager_duty_incident)
+    FactoryGirl.create(:pager_duty_report)
     visit root_path
     expect(page).to have_content 'MyString'
     click_link 'Show'

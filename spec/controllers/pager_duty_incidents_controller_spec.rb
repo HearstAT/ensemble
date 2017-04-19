@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe PagerDutyIncidentsController do
@@ -14,7 +15,7 @@ feature 'Logged in access to incidents', type: :feature do
     FactoryGirl.create(:domain)
     user = FactoryGirl.create(:confirmed_user)
     login_as(user, scope: :user)
-    pdi = FactoryGirl.create(:pager_duty_incident)
+    FactoryGirl.create(:pager_duty_incident)
     visit root_path
     expect(page).to have_content 'MyString'
     click_link 'Show'

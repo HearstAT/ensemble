@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'httparty'
 require 'net/http'
 require 'net/https'
@@ -128,13 +129,13 @@ namespace :gather do
   task pagerduty: :environment do
     SINCE_DATE = 6.months.ago.beginning_of_day.iso8601
     UNTIL_DATE = Time.now.utc.iso8601
-    TIMEFRAME = 'monthly'.freeze
+    TIMEFRAME = 'monthly'
 
     PagerDutyConfig.all.each do |pd|
       ENDPOINT = "https://#{pd.sub_domain}.pagerduty.com/api/v1/reports/" \
                 "incidents_per_time/?since=#{SINCE_DATE}&until=#{UNTIL_DATE}" \
-                "&rollup=#{TIMEFRAME}".freeze
-      TOKEN_STRING = "Token token=#{pd.api_key}".freeze
+                "&rollup=#{TIMEFRAME}"
+      TOKEN_STRING = "Token token=#{pd.api_key}"
 
       response = HTTParty.get(
         ENDPOINT,

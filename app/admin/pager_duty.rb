@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register PagerDutyService do
   belongs_to :pager_duty_config
   navigation_menu :pager_duty_config

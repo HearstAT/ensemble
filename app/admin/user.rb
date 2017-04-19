@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register User do
   before_action :authenticate_active_admin_user!
   permit_params :name,

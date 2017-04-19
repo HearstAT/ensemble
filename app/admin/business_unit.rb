@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register UserBusinessUnit do
   belongs_to :business_unit
   navigation_menu :business_unit

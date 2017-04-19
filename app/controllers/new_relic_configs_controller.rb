@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class NewRelicConfigsController < ApplicationController
   before_action :set_new_relic_config, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!

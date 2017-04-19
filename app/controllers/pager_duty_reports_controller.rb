@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PagerDutyReportsController < ApplicationController
   before_action :set_pager_duty_report, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!

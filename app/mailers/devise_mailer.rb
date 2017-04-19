@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # this tip from: https://gist.github.com/typeoneerror/a5e632f0ee97a8b5987a
 class DeviseMailer < Devise::Mailer
   helper :application # gives access to all helpers defined within `application_helper`.
@@ -8,7 +9,7 @@ class DeviseMailer < Devise::Mailer
     @token = token
 
     scope_name = Devise::Mapping.find_scope!(record)
-    devise_mapping = Devise.mappings[scope_name]
+    Devise.mappings[scope_name]
     template = 'mailer.html.erb'.to_sym
 
     # set the template path to whereever you want templates to live.

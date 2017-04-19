@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'httparty'
 require 'net/http'
 require 'net/https'

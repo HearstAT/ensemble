@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BusinessUnit < ApplicationRecord
   has_many :pager_duty_incident
   has_many :user_business_units

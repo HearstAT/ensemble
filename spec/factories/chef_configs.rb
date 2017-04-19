@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :chef_config do
     chef_server_url 'MyString'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PagerDutyIncidentsController < ApplicationController
   before_action :set_pager_duty_incident, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!

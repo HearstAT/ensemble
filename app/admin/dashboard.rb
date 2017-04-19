@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register_page 'Dashboard' do
   # before_action :authenticate_active_admin_user!
 

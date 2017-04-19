@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateChefServerReports < ActiveRecord::Migration[5.0]
   def change
     create_table :chef_server_reports do |t|

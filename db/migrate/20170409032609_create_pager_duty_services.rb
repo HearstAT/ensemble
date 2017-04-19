@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreatePagerDutyServices < ActiveRecord::Migration[5.0]
   def change
     create_table :pager_duty_services do |t|

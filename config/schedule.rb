@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 every :reboot do
   # `bin/delayed_job -n2 start`
   # command 'bin/delayed_job -n2 start'

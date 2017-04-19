@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class NewRelicReportsController < ApplicationController
   before_action :set_new_relic_report, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!

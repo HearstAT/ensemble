@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChefServerReportsController < ApplicationController
   before_action :set_chef_server_report, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
