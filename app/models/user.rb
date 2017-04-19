@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   def email_domain
     domain = email.split('@').last
-    return unless email.blank?
+    return if email.blank?
     errors.add(:email, 'Invalid Domain. Ask administrators to add this email domain.') if Domain.where(domain: domain).empty?
   end
 end
