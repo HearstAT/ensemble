@@ -162,6 +162,20 @@ docker-compose exec website bundle exec bin/rake db:create
 docker-compose exec website bundle exec bin/rake db:migrate
 ```
 
+### Rails Listen Fork Bomb and how to deal with it
+
+Repeated on a Mac I am running into the [Rails Listen Issue](https://github.com/rails/rails/issues/26158) causing the need to restart.  This can be seen with the repeated error:
+
+```
+fsevent_watch[13744] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() => (null) (-21)
+```
+
+Currently I am trying:
+
+```
+DISABLE_SPRING=1
+```
+
 ## Configuration
 
 Development should run without changes to configuration.
