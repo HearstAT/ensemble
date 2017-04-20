@@ -23,6 +23,7 @@ exclude_paths:
   - "**/vendor/**/*"
   - public/**/*
   - app/assets/**/*
+  - db/schema.rb
 ratings: 
   paths: 
     - app/**
