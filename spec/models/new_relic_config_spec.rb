@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe PagerDutyConfig, type: :model do
+RSpec.describe NewRelicConfig, type: :model do
   subject { described_class.new }
 
   describe 'Validations' do
     it 'is valid with valid attributes' do
-      subject.sub_domain = 'sudomain'
+      subject.account_number = 'account_number'
       subject.api_key = 'api_key'
       expect(subject).to be_valid
     end
 
-    it 'is not valid without sub_domain' do
+    it 'is not valid without account_number' do
       subject.api_key = 'api_key'
       expect(subject).to_not be_valid
     end
 
     it 'is not valid without api_key' do
-      subject.sub_domain = 'sub_domain'
+      subject.account_number = 'account_number'
       expect(subject).to_not be_valid
     end
   end
@@ -26,11 +26,6 @@ RSpec.describe PagerDutyConfig, type: :model do
     it 'belongs_to business units' do
       assc = described_class.reflect_on_association(:business_unit)
       expect(assc.macro).to eq :belongs_to
-    end
-
-    it 'has_many pager_duty_service' do
-      assc = described_class.reflect_on_association(:pager_duty_service)
-      expect(assc.macro).to eq :has_many
     end
   end
 end

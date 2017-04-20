@@ -16,7 +16,7 @@ FactoryGirl.define do
   end
 
   factory :user_with_business_units, parent: :user do
-    after(:create) do |user, bu|
+    after(:create) do |user|
       user.business_unit << FactoryGirl.create(:business_unit)
     end
   end
