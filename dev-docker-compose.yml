@@ -42,7 +42,7 @@ services:
       - "26162:26162"
       #- "25:25"
     env_file:
-      - 'production.env'
+      - 'docker.env'
 
   sidekiq:
     restart: always
@@ -54,7 +54,7 @@ services:
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - 'production.env'
+      - 'docker.env'
 
   cable:
     restart: always
@@ -67,7 +67,7 @@ services:
     volumes:
       - '.:/opt/ensemble'
     env_file:
-      - 'production.env'
+      - 'docker.env'
 
 volumes:
   redis:
