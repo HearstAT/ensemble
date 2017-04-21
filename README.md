@@ -11,7 +11,11 @@
 
 ### Ruby
 
-Installing Ruby is a personal preference.  [RVM](https://rvm.io/rvm/install) is an option:
+How to install Ruby is a personal preference.  
+
+#### RVM
+
+[RVM](https://rvm.io/rvm/install) is an option for installing Ruby (there are others)
 
 ```
 rvm install ruby-2.3.3
@@ -216,7 +220,7 @@ This can be easily deployed into AWS using: https://github.com/HearstAT/cfn_ense
 
 ## License
 
-Copyright 2016, Hearst Automation Team
+Copyright 2017, Hearst Automation Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
