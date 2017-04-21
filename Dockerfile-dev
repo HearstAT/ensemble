@@ -1,3 +1,3 @@
-FROM hearstat/docker-rails-debug-base
+FROM hearstat/alpine-rails-debug-base
 #FROM rails_debug
 MAINTAINER Hearst Automation Team
