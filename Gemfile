@@ -55,8 +55,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  # Ruby 2.3 is failing when trying to debug, may need to use this version
-  # gem 'debase', '>= 0.2.2.beta8'
+  # Ruby 2.3 is failing when trying to debug, have to use the beta version
   gem 'debase', '~>0.2.2.beta10'
   gem 'ruby-debug-ide', '~> 0.6.1.beta4'
 end

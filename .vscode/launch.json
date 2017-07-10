@@ -16,7 +16,8 @@
             "type": "Ruby",
             "request": "launch",
             "cwd": "${workspaceRoot}",
-            "program": "${file}"
+            "program": "${file}",
+            "showDebuggerOutput": true
         },
         {
             "name": "Listen for rdebug-ide",
@@ -34,7 +35,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rails",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "pathToBundler": "${env:HOME}/.rvm/gems/${env:rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
@@ -48,7 +49,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rails",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "pathToBundler": "${env:HOME}/.rvm/gems/${env:rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "args": [
                 "server"
@@ -61,7 +62,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rspec",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "pathToBundler": "${env:HOME}/.rvm/gems/${env:rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
@@ -76,7 +77,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rails",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "pathToBundler": "${env:HOME}/.rvm/gems/${env:rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "env": {
@@ -94,7 +95,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rspec",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "pathToBundler": "${env:HOME}/.rvm/gems/${env:rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
@@ -110,7 +111,7 @@
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/bin/rails",
             "useBundler": true,
-            "pathToBundler": "${env.HOME}/.rvm/gems/${env.rvm_ruby_string}/wrappers/bundle",
+            "pathToBundler": "${env:HOME}/.rvm/gems/${env:rvm_ruby_string}/wrappers/bundle",
             "showDebuggerOutput": true,
             "pathToRDebugIDE": "${workspaceRoot}/bin/rdebug-ide",
             "args": [
