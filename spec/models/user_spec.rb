@@ -10,25 +10,35 @@ RSpec.describe User, type: :model do
 
   describe 'Validations' do
     it 'is valid with valid attributes' do
-      subject.email = 'test@example.com'
-      subject.password = 'password'
-      expect(subject).to be_valid
+      expect(create(:user)).to be_valid
     end
 
     it 'is not valid without password' do
-      subject.email = 'test@example.com'
-      expect(subject).to_not be_valid
+      user = build(:user, password: nil)
+      expect(user).to_not be_valid
     end
 
     it 'is not valid without email' do
+      # TODO, need up update for a nil check before the split on @ symbol
       subject.password = 'password'
       expect(subject).to_not be_valid
     end
 
     it 'is not valid with invalid email domain' do
-      subject.email = 'test@example2.com'
-      subject.password = 'password'
-      expect(subject).to_not be_valid
+      user = build(:user, email: 'test@example2.com')
+      expect(user).to_not be_valid
+    end
+  end
+
+  describe 'Confirmed User' do
+    it 'can create' do
+      expect(create(:confirmed_user)).to be_valid
+    end
+  end
+
+  describe 'Admin User' do
+    it 'can create' do
+      expect(create(:admin_user)).to be_valid
     end
   end
 
