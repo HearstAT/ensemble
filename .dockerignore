@@ -8,3 +8,4 @@ vendor/*
 Gemfile.lock
 .vscode/*
 .bundle/*
+*.env

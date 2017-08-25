@@ -1,0 +1,454 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Ensemble - Ubuntu Xenial Based (20170811 AMI Build)
+
+Parameters:
+###############################################################################
+# DOMAIN PARAMS
+###############################################################################
+  HostedZone:
+    Type: String
+    Default: domain.com
+    Description: must match a route53 hosted domain/zone
+
+  SSLCertificateARN:
+    Type: String
+    Default: ''
+    Description: SSL Certficate ARN for SSL Certficate
+
+  MetricsSubdomain:
+    Type: String
+    Default: metrics-test
+    AllowedValues:
+      - metrics-a
+      - metrics-b
+      - metrics-test
+    Description: subdomain/prefix that is combined with the hosted zone entered
+
+###############################################################################
+# NETWORK AND SYTEM PARAMS
+###############################################################################
+
+  VPC:
+    Description: Choose VPC to use
+    Type: AWS::EC2::VPC::Id
+    Default: ''
+
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - m3.medium
+      - m3.large
+    ConstraintDescription: must be a valid EC2 instance type.
+
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+
+  SSHSecurityGroup:
+    Description: Select Security Group for SSH Access
+    Type: AWS::EC2::SecurityGroup::Id
+    Default: ''
+  
+  CIDRA:
+    Type: String
+    Default: 172.31.48.0/24
+    Description: Subnet A CIDR Block
+
+  CIDRB:
+    Type: String
+    Default: 172.31.49.0/24
+    Description: Subnet B CIDR Block
+
+###############################################################################
+# DATABASE PARAMS
+###############################################################################
+
+  DBSnapShot:
+    Type: String
+    Default: ''
+    Description: Enter ARN of DB Snapshot to Create Database From (Leave blank to create a fresh database)
+
+  DBUser:
+    Type: String
+    Default: ''
+    Description: Enter DB User Name (Required)
+
+  DBPassword:
+    Type: String
+    NoEcho: 'true'
+    Default: ''
+    Description: Enter DB Password (Required)
+
+  DBInstanceType:
+    Type: String
+    Default: db.t2.micro
+    AllowedValues:
+      - db.t2.micro
+      - db.t2.small
+      - db.t2.medium
+    ConstraintDescription: must be a valid Postgresql instance type.
+
+  DBPublic:
+    Type: String
+    Default: 'false'
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Description: Select True or False if you want your Database public facing
+
+  DBName:
+    Type: String
+    Default: ''
+    Description: Enter DB Name (External/Existing Only or If Utilizing DB Snapshot - Leave Empty to ignore)
+
+  DBURL:
+    Type: String
+    Default: ''
+    Description: Enter DB URL or VIP (External/Existing Only - Leave Empty to ignore)
+
+###############################################################################
+# ENSEMBLE PARAMS
+###############################################################################
+  Email:
+    Type: String
+    Default: ''
+    Description: Set Email Address that is used for Sign Up and Password Resets
+  SecretToken:
+    Type: String
+    NoEcho: 'true'
+    Default: ''
+    Description: SecretToken/SecretKeyBase for Rails app
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    -
+      Label:
+        default: Instance & Network Configuration
+      Parameters:
+        - MetricsSubdomain
+        - InstanceType
+        - KeyName
+        - VPC
+        - SSHSecurityGroup
+        - CIDRA
+        - CIDRB
+    -
+      Label:
+        default: Database Configuration
+      Parameters:
+        - DBUser
+        - DBPassword
+        - DBInstanceType
+        - DBPublic
+        - DBPublicCIDR
+        - DBMultiAZ
+        - DBURL
+    -
+      Label:
+        default: Ensemble Configuration
+      Parameters:
+        - Email
+        - SecretToken
+
+Conditions:
+  DBCon:
+    !Equals [ !Ref DBURL, '' ]
+  DBNameCon:
+    !Equals [ !Ref DBName, '' ]
+  # Set necessary items if Snapshot ID present
+  DBSnapCon:
+    !Equals [ !Ref DBSnapShot, '' ]
+  DBPublicTrue:
+    !Equals [ !Ref DBPublic, 'true' ]
+
+Mappings:
+  RegionMap:
+    us-west-2:
+      HVM64: ami-8803e0f0
+    eu-west-1:
+      HVM64: ami-674cbc1e
+
+Resources:
+###############################################################################
+# SUBNET CONFIG
+###############################################################################
+  SubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      # Get Availability Zones and select first in string
+      AvailabilityZone: !Select [ 0, !GetAZs "" ]
+      CidrBlock: !Ref CIDRA
+      Tags:
+        - Key: Name
+          Value: Public-Subnet-A
+        - Key: Application
+          Value: !Ref AWS::StackId
+        - Key: Network
+          Value: "Public"
+  SubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      # Get Availability Zones and select first in string
+      AvailabilityZone: !Select [ 1, !GetAZs "" ]
+      CidrBlock: !Ref CIDRB
+      Tags:
+        - Key: Name
+          Value: Public-Subnet-B
+        - Key: Application
+          Value: !Ref AWS::StackId
+        - Key: Network
+          Value: "Public"
+
+###############################################################################
+# DATABASE CONFIG
+###############################################################################
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Condition: DBCon
+    Properties:
+      DBSubnetGroupDescription: "Metrics DB Subnet Group"
+      SubnetIds:
+          - !Ref SubnetA
+          - !Ref SubnetB
+      Tags:
+        - Key: Name
+          Value: !Sub "${MetricsSubdomain} DB Subnet Group"
+
+  DBSecurityGroup:
+    Type: AWS::RDS::DBSecurityGroup
+    Condition: DBCon
+    Properties:
+      EC2VpcId: !Ref VPC
+      DBSecurityGroupIngress:
+        - EC2SecurityGroupId: !Ref ServerSecurityGroup
+      GroupDescription: "Metrics Database Access Group"
+
+  MetricsDB:
+    Type: AWS::RDS::DBInstance
+    Condition: DBCon
+    DeletionPolicy: Delete
+    Properties:
+      DBName: !If [ DBSnapCon, 'metricsdb', '' ]
+      AllocatedStorage: 50
+      DBInstanceIdentifier: !Sub ${MetricsSubdomain}-db
+      MasterUsername: !Ref DBUser
+      MasterUserPassword: !Ref DBPassword
+      DBInstanceClass: !Ref DBInstanceType
+      DBSnapshotIdentifier: !Ref DBSnapShot
+      MonitoringInterval: 5
+      Engine: postgres
+      EngineVersion: 9.5.4
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 14
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DBSecurityGroups:
+        - !Ref DBSecurityGroup
+      PubliclyAccessible: !If [ DBPublicTrue, true, false ]
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-pgdb
+
+###############################################################################
+# SECURITY AND NETWORK CONFIG
+###############################################################################
+  ServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Setup Ingress/Egress for Servers
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3000'
+          ToPort: '3000'
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: '0'
+          ToPort: '65535'
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: Server-Security-Group
+
+  LoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Setup Ingress/Egress for Metrics Load Balancer
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '443'
+          ToPort: '443'
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: '0'
+          ToPort: '65535'
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: !Sub ${MetricsSubdomain}-ELB-SecurityGroup
+
+###############################################################################
+# ELB AND DNS CONFIG
+###############################################################################
+  PrimaryElasticLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      HealthCheck:
+        HealthyThreshold: '2'
+        Interval: '90'
+        Target: tcp:3000
+        Timeout: '60'
+        UnhealthyThreshold: '10'
+      Instances:
+        - !Ref Ec2Instance
+      Subnets:
+        - !Ref SubnetA
+      SecurityGroups:
+        - !Ref LoadBalancerSecurityGroup
+      LBCookieStickinessPolicy:
+        - PolicyName: PublicELBCookieStickinessPolicy
+          CookieExpirationPeriod: '3600'
+      Listeners:
+        - InstancePort: '3000'
+          LoadBalancerPort: '443'
+          InstanceProtocol: HTTP
+          Protocol: HTTPS
+          PolicyNames:
+            - PublicELBCookieStickinessPolicy
+          SSLCertificateId: !Ref SSLCertificateARN
+      Tags:
+        - Key: Name
+          Value: !Sub ${MetricsSubdomain}-ELB
+
+  MetricsDNS:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      # Use sub to treat params and resources like variables http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
+      HostedZoneName: !Sub "${HostedZone}."
+      Comment: !Sub Zone apex alias targeted to ${MetricsSubdomain} ELB.
+      RecordSets:
+          # Create DNS A Record by joining MetricsSubdomain + HostedZone
+        - Name: !Join [ '', [ !Ref MetricsSubdomain, ".", !Ref HostedZone, "." ] ]
+          Type: A
+          AliasTarget:
+            HostedZoneId: !GetAtt PrimaryElasticLoadBalancer.CanonicalHostedZoneNameID
+            DNSName: !GetAtt PrimaryElasticLoadBalancer.CanonicalHostedZoneName
+
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !FindInMap [ RegionMap, !Ref "AWS::Region", HVM64 ]
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet:
+            - !Ref ServerSecurityGroup
+            - !Ref SSHSecurityGroup
+          SubnetId:
+            Ref: SubnetA
+      BlockDeviceMappings:
+        - DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: '15'
+      UserData:
+        "Fn::Base64":
+          "Fn::Sub": 
+            - |
+              #!/bin/bash -xev
+              ##########################################################
+              # Global Variable Set
+              ##########################################################
+              export DEBIAN_FRONTEND=noninteractive
+              export INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+              export STACKNAME='${AWS::StackName}'
+
+              ##########################################################
+              # Upgrade OS & Install Dependencies
+              ##########################################################
+              apt-get update && apt-get upgrade -yq
+              apt-get install -y wget curl python-setuptools python-pip git ruby ruby-dev build-essential libpq-dev libsqlite3-dev nodejs
+
+              ##########################################################
+              # Install cfn bootstraping tools
+              ##########################################################
+              if [ -z $(command -v cfn-signal) ]; then
+                  easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+              fi
+
+              ##########################################################
+              # Helper function to set wait timer
+              ##########################################################
+              error_exit()
+              {
+                cfn-signal -e 1 -r "$1" "${WaitHandle}"
+                exit 1
+              }
+              export -f error_exit
+
+              ##########################################################
+              # Install docker and compose
+              ##########################################################
+              apt-get install apt-transport-https ca-certificates curl software-properties-common || error_exit "Failed to install docker pre-reqs"
+              curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - || error_exit "Failed to download docker"
+              add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" || error_exit "Failed to add docker repository"
+              apt-get update || error_exit "Failed update apt-get"
+              apt-get install -y docker-ce || error_exit "Failed to install docker-ce"
+              curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose || error_exit "Failed to install docker-compose"
+              chmod +x /usr/local/bin/docker-compose || error_exit "Failed to make docker-compose executable"
+
+              ##########################################################
+              # Install Docker Container with Rails App
+              ##########################################################
+              cd opt
+              git clone https://github.com/HearstAT/ensemble.git || error_exit "Failed to git clone ensemble"
+              cd ensemble
+              gem install bundle || error_exit "Failed to install bundle via GEM"
+              git checkout switch_pager_duty_api # Remove when or before merge
+              bundle install || error_exit "Failed to run Bundle Install"
+              bundle exec rake production:build['${SecretToken}','${Email}','${DBNAME}','${DBUser}','${DBPassword}','${DBENDPOINT}'] || error_exit "Failed to run production rake deploy"
+              
+              ##########################################################
+              # Setup Cron Daily for PD Gather Task
+              ##########################################################
+
+              cat > '/etc/cron.daily/ensemble' << 'EOF'
+              #!/bin/bash -xe
+              cd /opt/ensemble
+              [[ -d '/var/log/ensemble' ]] || mkdir -p /var/log/ensemble
+              find /var/log/ensemble/ -mindepth 1 -mtime +10 -delete
+              docker-compose exec rails bundle exec rake gather:pagerduty_incidents >> /var/log/ensemble/PD-Gather.$(date +%F).log
+              EOF
+
+              chmod +x /etc/cron.daily/ensemble
+              
+              ##########################################################
+              # Send Success Signal to CFN Wait Handle
+              ##########################################################
+              /usr/local/bin/cfn-signal -e 0 -r 'Server setup complete' "${WaitHandle}"
+
+              ##########################################################
+              # Reboot After Success for all updates made
+              ##########################################################
+              reboot
+            - { DBENDPOINT: !If [ DBCon, !GetAtt MetricsDB.Endpoint.Address, !Ref DBURL ], DBNAME: !If [ DBNameCon, 'metricsdb' , !Ref DBName ]}
+  WaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+  WaitCondition:
+    Type: AWS::CloudFormation::WaitCondition
+    DependsOn: Ec2Instance
+    Properties:
+      Handle:  !Ref WaitHandle
+      Timeout: '2300'

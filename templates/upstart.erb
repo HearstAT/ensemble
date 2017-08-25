@@ -1,0 +1,15 @@
+#/etc/init/ensemble.conf
+description "Dockerized Ensemble App"  
+author "Hearst Automation Team"
+
+start on virtual-filesystems
+stop on runlevel [06]
+
+setuid nobody
+setgid nobody
+
+chdir <%= @PROJECT_DIR %>
+
+pre-start exec bundle exec server -e production
+
+post-stop exec kill `cat <%= @PROJECT_DIR %>/tmp/pids/server.pid`

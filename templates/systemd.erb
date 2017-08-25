@@ -1,0 +1,16 @@
+[Unit]
+Description=Ensemble
+ 
+[Service]
+TimeoutStartSec=0
+TimeoutStopSec=30
+Restart=always
+RestartSec=10
+Type=simple
+User=app
+WorkingDirectory=<%= @PROJECT_DIR %>
+ExecStart=bundle exec rails s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

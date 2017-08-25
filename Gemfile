@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -33,12 +34,12 @@ gem 'bcrypt'
 # graphing and charting capabilities
 gem 'chartkick', git: 'https://github.com/aaronblythe/chartkick.git', branch: 'add_highstock'
 gem 'faker'
-gem 'groupdate', github: 'ankane/groupdate', branch: 'sqlite'
+gem 'groupdate', git: 'https://github.com/ankane/groupdate.git', branch: 'sqlite'
 gem 'highstock-rails'
 gem 'kaminari', '~> 0.17.0'
 gem 'will_paginate'
 # Use Sidekiq as a background job processor through Active Job
-gem 'sidekiq', '~> 4.2'
+# gem 'sidekiq', '~> 4.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -47,8 +48,6 @@ group :development, :test do
 end
 
 group :development do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
   gem 'web-console'
@@ -58,6 +57,9 @@ group :development do
   # Ruby 2.3 is failing when trying to debug, have to use the beta version
   gem 'debase', '~>0.2.2.beta10'
   gem 'ruby-debug-ide', '~> 0.6.1.beta4'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+  gem 'rails-erd', require: false
 end
 
 group :test do

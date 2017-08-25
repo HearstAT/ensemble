@@ -32,6 +32,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 50
 
+Style/VariableName:
+  Description: 'Use the configured style when naming variables.'
+  StyleGuide: '#snake-case-symbols-methods-vars'
+  Enabled: false
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, SupportedStyles.

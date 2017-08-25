@@ -1,12 +1,15 @@
-sudo: required
+# sudo: required
 language: ruby
 rvm:
-  - 2.3.0
-  - 2.3.3
+  - 2.3
+  - 2.4
+env:
+  - RAILS_ENV=test
 install:
   - bundle install --binstubs --path vendor/bundle
 script:
-  - bundle exec rake db:migrate RAILS_ENV=test
+  - bundle exec rake setup:local['test']
+  - bundle exec rake db:migrate
   - bundle exec rspec
 addons:
   code_climate:

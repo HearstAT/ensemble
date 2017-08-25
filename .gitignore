@@ -6,7 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
-/vendor/bundle
+/vendor/*
 
 # these should all be checked in to normalize the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
@@ -47,4 +47,7 @@ bin/bundler
 
 data/*
 production.env
-.env
+*.env
+docker-compose.yml
+!examples/*
+

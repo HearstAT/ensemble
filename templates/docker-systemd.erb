@@ -1,0 +1,26 @@
+[Unit]
+Description=Dockerized Ensemble App
+Requires=docker.service
+After=docker.service
+Conflicts=shutdown.target reboot.target halt.target
+ 
+[Service]
+TimeoutStartSec=0
+TimeoutStopSec=30
+Restart=always
+RestartSec=10
+WorkingDirectory=<%= @PROJECT_DIR %>
+
+## Ensemble Clean up Prior to Start
+ExecStartPre=-/usr/local/bin/docker-compose -f docker-compose.yml down -v
+ 
+## Ensemble Start
+ExecStart=/usr/local/bin/docker-compose -f docker-compose.yml up --force-recreate --no-deps
+
+## Ensemble Stop
+ExecStop=/usr/local/bin/docker-compose -f docker-compose.yml down -v
+
+NotifyAccess=all
+ 
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,22 @@
+version: '2'
+
+#####
+# This file was created via Rake Setup Task
+# Generated for evnironment: dev by task: docker
+#####
+
+services:
+  rails:
+    restart: always
+    build:
+      context: ./
+      args:
+        BUILD_ENV: dev
+        RACK_ENV: development
+        RAILS_ENV: development
+    ports:
+      - "3000:3000"
+      - "1234:1234"
+      - "26162:26162"
+    env_file:
+      - '.docker.env'

@@ -1,0 +1,58 @@
+version: '2'
+
+#####
+# This file was created via Rake Setup Task
+# Generated for evnironment: <%= @ARGS.env %> by task: <%= @TASK %>
+#####
+
+services:
+<% if @TASK == 'docker_ps' %>
+  postgres:
+    restart: always
+    image: 'postgres:9.6-alpine'
+    environment:
+      POSTGRES_USER: 'railstest1'
+      POSTGRES_PASSWORD: 'railstest'
+    ports:
+      - '5432:5432'
+    volumes:
+      - './data/postgres:/var/lib/postgresql/data'
+<% end -%>
+  rails:
+    restart: always
+<% if @TASK == 'docker_ps' -%>
+    depends_on:
+      - 'postgres'
+<% end -%>
+<% if @BUILD -%>
+    build:
+      context: ./
+      args:
+        BUILD_ENV: <%= @ARGS.env %>
+<% if @ARGS.env == 'prod' -%>
+        RACK_ENV: production
+        RAILS_ENV: production
+<% elsif @ARGS.env == 'test' -%>
+        RACK_ENV: test
+        RAILS_ENV: test
+<% elsif @ARGS.env == 'dev' -%>
+        RACK_ENV: development
+        RAILS_ENV: development
+<% end -%>
+<% else -%>
+    image: hearstat/ensemble
+<% end -%>
+<% if @ARGS.mount == true -%>
+    volumes:
+      - ./lib:/usr/src/rails/lib
+      - ./app:/usr/src/rails/app
+      - ./db:/usr/src/rails/db
+<% end -%>
+    ports:
+      - "3000:3000"
+<% if @ARGS.env.to_s.include? 'dev' -%>
+      - "1234:1234"
+      - "26162:26162"
+<% end -%>
+    env_file:
+      - '.docker.env'
