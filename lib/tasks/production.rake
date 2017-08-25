@@ -6,7 +6,7 @@ require_relative '../../lib/helpers/process'
 
 namespace :production do
   desc 'Build from Dockerfile, Setup w/ Postgres, and Run for Production'
-  task :build, %i[secret_token email_from db_name email_host db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
+  task :build, %i[secret_token email_from email_host db_name db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
     raise 'Secret Token Required!' unless args.secret_token
     raise 'Email config Required!' unless args.email_from
     @BUILD = true
