@@ -6,7 +6,7 @@ require_relative '../../lib/helpers/process'
 
 namespace :production do
   desc 'Build from Dockerfile, Setup w/ Postgres, and Run for Production'
-  task :build, %i[secret_token email_from db_name db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
+  task :build, %i[secret_token email_from db_name email_host db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
     raise 'Secret Token Required!' unless args.secret_token
     raise 'Email config Required!' unless args.email_from
     @BUILD = true
@@ -15,7 +15,7 @@ namespace :production do
   end
 
   desc 'Pull from Dockerhub, Setup w/ Postgress, and Run for Production'
-  task :pull, %i[version secret_token email_from db_name db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
+  task :pull, %i[version secret_token email_from email_host db_name db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
     raise 'Secret Token Required!' unless args.secret_token
     raise 'Email config Required!' unless args.email_from
     @BUILD = false
@@ -24,7 +24,7 @@ namespace :production do
   end
 
   desc 'Install and Setup Locally w/ Postgress and Run for Production'
-  task :local, %i[secret_token email_from db_name db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
+  task :local, %i[secret_token email_from email_host db_name db_user db_pass db_host db_pool db_port] => :environment do |_task, args|
     raise 'Secret Token Required!' unless args.secret_token
     raise 'Email config Required!' unless args.email_from
     arg_set(args)
@@ -38,6 +38,7 @@ namespace :production do
     @MOUNT = false
     @SECRET_TOKEN = args.secret_token
     @EMAIL_FROM = args.email_from
+    @EMAIL_HOST = args.email_host || nil
     @DB_NAME = args.db_name || nil
     @DB_USER = args.db_user || nil
     @DB_PASS = args.db_pass || nil
@@ -47,7 +48,7 @@ namespace :production do
   end
 
   def local
-    Rake::Task['setup:local_ps'].invoke(@ENV, @VENDOR, @SECRET_TOKEN, @EMAIL_FROM, @DB_NAME, @DB_USER, @DB_PASS, @DB_HOST, @DB_POOL, @DB_PORT)
+    Rake::Task['setup:local_ps'].invoke(@ENV, @VENDOR, @SECRET_TOKEN, @EMAIL_FROM, @EMAIL_HOST, @DB_NAME, @DB_USER, @DB_PASS, @DB_HOST, @DB_POOL, @DB_PORT)
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
     ENV['RACK_ENV'] = 'production'
@@ -58,7 +59,7 @@ namespace :production do
   end
 
   def docker
-    Rake::Task['setup:docker'].invoke(@ENV, @MOUNT, @SECRET_TOKEN, @EMAIL_FROM, @DB_NAME, @DB_USER, @DB_PASS, @DB_HOST, @DB_POOL, @DB_PORT)
+    Rake::Task['setup:docker'].invoke(@ENV, @MOUNT, @SECRET_TOKEN, @EMAIL_FROM, @EMAIL_HOST, @DB_NAME, @DB_USER, @DB_PASS, @DB_HOST, @DB_POOL, @DB_PORT)
     build_init(false) if OS.linux?
     system('docker build --tag=ensemble_rails ./') if @BUILD
     launch(false) if OS.linux?

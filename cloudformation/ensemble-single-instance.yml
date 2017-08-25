@@ -374,6 +374,7 @@ Resources:
               export DEBIAN_FRONTEND=noninteractive
               export INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
               export STACKNAME='${AWS::StackName}'
+              export HOSTNAME="${MetricsSubdomain}-${!INSTANCE_ID}.${HostedZone}"
 
               ##########################################################
               # Upgrade OS & Install Dependencies
@@ -399,6 +400,18 @@ Resources:
               export -f error_exit
 
               ##########################################################
+              # Set Hostname and Hosts File
+              ##########################################################
+
+              hostname ${!HOSTNAME} || error_exit 'Failed to set hostname'
+              echo "${!HOSTNAME}" > /etc/hostname || error_exit 'Failed to set hostname file'
+
+              cat > '/etc/hosts' << EOF
+              127.0.0.1 ${!HOSTNAME} ${!HOSTNAME%%.*} ${MetricsSubdomain}.${HostedZone} localhost
+              ::1 localhost6.localdomain6 localhost6
+              EOF
+
+              ##########################################################
               # Install docker and compose
               ##########################################################
               apt-get install apt-transport-https ca-certificates curl software-properties-common || error_exit "Failed to install docker pre-reqs"
@@ -416,14 +429,12 @@ Resources:
               git clone https://github.com/HearstAT/ensemble.git || error_exit "Failed to git clone ensemble"
               cd ensemble
               gem install bundle || error_exit "Failed to install bundle via GEM"
-              git checkout switch_pager_duty_api # Remove when or before merge
               bundle install || error_exit "Failed to run Bundle Install"
-              bundle exec rake production:build['${SecretToken}','${Email}','${DBNAME}','${DBUser}','${DBPassword}','${DBENDPOINT}'] || error_exit "Failed to run production rake deploy"
+              bundle exec rake production:build['${SecretToken}','${Email}','${MetricsSubdomain}.${HostedZone}','${DBNAME}','${DBUser}','${DBPassword}','${DBENDPOINT}'] || error_exit "Failed to run production rake deploy"
               
               ##########################################################
               # Setup Cron Daily for PD Gather Task
               ##########################################################
-
               cat > '/etc/cron.daily/ensemble' << 'EOF'
               #!/bin/bash -xe
               cd /opt/ensemble

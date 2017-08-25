@@ -6,7 +6,7 @@ require 'socket'
 
 namespace :setup do
   desc "Setup Ensemble locally, pass setup:local['dev'] to setup as dev (Defaults: env: prod, vendor: true)"
-  task :local, %i[env vendor secret_token email_from db_name db_user db_pass db_host db_pool db_port email_host] => :environment do |task, args|
+  task :local, %i[env vendor secret_token email_from email_host db_name db_user db_pass db_host db_pool db_port] => :environment do |task, args|
     @TASK = task.to_s.partition(':').last
     args.with_defaults(defaults(@TASK))
     @ARGS = args
@@ -14,7 +14,7 @@ namespace :setup do
   end
 
   desc "Setup Ensemble locally, pass setup:local['dev'] to setup as dev (Defaults: env: prod, vendor: true)"
-  task :local_ps, %i[env vendor secret_token email_from db_name db_user db_pass db_host db_pool db_port email_host] => :environment do |task, args|
+  task :local_ps, %i[env vendor secret_token email_from email_host db_name db_user db_pass db_host db_pool db_port] => :environment do |task, args|
     @TASK = task.to_s.partition(':').last
     args.with_defaults(defaults(@TASK))
     @ARGS = args
@@ -23,7 +23,7 @@ namespace :setup do
   end
 
   desc "Setup Ensemble in a Docker container, pass setup:docker['dev'] to setup as dev. Prod is default"
-  task :docker, %i[env mount secret_token email_from db_name db_user db_pass db_host db_pool db_port email_host] => :environment do |task, args|
+  task :docker, %i[env mount secret_token email_from email_host db_name db_user db_pass db_host db_pool db_port] => :environment do |task, args|
     @TASK = task.to_s.partition(':').last
     @BUILD = true if args.env == 'dev' && @BUILD.blank?
     args.with_defaults(defaults(@TASK))
@@ -33,7 +33,7 @@ namespace :setup do
   end
 
   desc "Setup Ensemble and a Postgres instance in Docker, pass setup:docker_ps['dev'] to setup as dev. Prod is default"
-  task :docker_ps, %i[env mount secret_token email_from db_name db_user db_pass db_host db_port db_pool email_host] => :environment do |task, args|
+  task :docker_ps, %i[env mount secret_token email_from email_host db_name db_user db_pass db_host db_port db_pool] => :environment do |task, args|
     @TASK = task.to_s.tr('setup:', '')
     @BUILD = true if args.env == 'dev' && @BUILD.blank?
     args.with_defaults(defaults(@TASK))
