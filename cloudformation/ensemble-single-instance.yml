@@ -360,9 +360,13 @@ Resources:
           SubnetId:
             Ref: SubnetA
       BlockDeviceMappings:
-        - DeviceName: "/dev/sda1"
+        - DeviceName: /dev/sda1
           Ebs:
-            VolumeSize: '15'
+            VolumeSize: 15
+            DeleteOnTermination: true
+      Tags:
+        - Key: Name
+          Value: !Sub ensemble-${AWS::StackName}
       UserData:
         "Fn::Base64":
           "Fn::Sub": 
@@ -430,7 +434,7 @@ Resources:
               cd ensemble
               gem install bundle || error_exit "Failed to install bundle via GEM"
               bundle install || error_exit "Failed to run Bundle Install"
-              bundle exec rake production:build['${SecretToken}','${Email}','${MetricsSubdomain}.${HostedZone}','${DBNAME}','${DBUser}','${DBPassword}','${DBENDPOINT}'] || error_exit "Failed to run production rake deploy"
+              bundle exec rake production:build['${SecretToken}','${Email}','https://${MetricsSubdomain}.${HostedZone}','${DBNAME}','${DBUser}','${DBPassword}','${DBENDPOINT}'] || error_exit "Failed to run production rake deploy"
               
               ##########################################################
               # Setup Cron Daily for PD Gather Task
